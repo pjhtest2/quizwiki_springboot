@@ -40,7 +40,7 @@
 	<div class="container">
 		<div class="logo_wrap">
 			<a href="/main"> <img
-				src="/images_logo1_trans.png" id="login_title_img"
+				src="/images/QuizWiki_logo1_trans.png" id="login_title_img"
 				width="100%" height="100%">
 			</a>
 		</div>

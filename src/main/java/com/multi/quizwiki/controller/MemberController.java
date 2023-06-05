@@ -41,4 +41,9 @@ public class MemberController {
 		return "/find_forgot_pass";
 	}
 	
+	@RequestMapping("/signupAgreement")
+	public String show_signup_agreement() {
+		return "thymeleaf/member/signup_agreement";
+	}
+	
 }
