@@ -71,9 +71,9 @@
 						<li onclick="location.href=''">고민있어요</li>
 
 						<li class="side_select"
-							onclick="location.href='/qboard/list'">질문있어요</li>
+							onclick="location.href='../qboard/list'">질문있어요</li>
 
-						<li onclick="location.href='/pboard/list'">나만의오답노트</li>
+						<li onclick="location.href='../pboard/list'">나만의오답노트</li>
 					</ul>
 
 				</div>
@@ -95,7 +95,7 @@
 
 						<span style='float: right;'> <input type="button"
 							class="btn btn-success" value="질문하기"
-							onclick="location.href='/qboard/write'" />
+							onclick="location.href='../qboard/write'" />
 						</span>
 
 						
@@ -122,7 +122,7 @@
 				<div id="content_body">
 				<ul class="question-list">
   <li class="question-container">
-    <a class="e-click-post" href="/qboard/read">
+    <a class="e-click-post" href="../qboard/read">
       
     <div class="question">
       <div class="question__info">
