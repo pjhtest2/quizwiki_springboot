@@ -12,14 +12,5 @@ function next_signup()  {
 
   }
   
-//  if(checkboxes.length === checked.length)  {
-//  console.log(checkboxes.length);
-//  console.log(checked.length);
-//  location.href='/signup.do'
-//	  return;
-//    
-//  }
-  
-
 }
 

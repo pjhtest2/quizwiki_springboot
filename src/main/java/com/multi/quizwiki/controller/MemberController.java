@@ -13,32 +13,32 @@ public class MemberController {
 	
 	@RequestMapping("/login.do")
 	public String show_login() {
-		return "/login";
+		return "thymeleaf/member/login";
 	}
 	
 	@RequestMapping("/signup.do")
 	public String show_signup() {
-		return "/signup";
+		return "thymeleaf/member/signup";
 	}
 	
 	@RequestMapping("/findId.do")
 	public String show_id_forgot() {
-		return "/find_id";
+		return "thymeleaf/member/login_id_forgot";
 	}
 	
 	@RequestMapping("/findPass.do")
 	public String show_pass_forgot() {
-		return "/find_pass";
+		return "thymeleaf/member/login_pass_forgot";
 	}
 	
 	@RequestMapping("/findId")
 	public String show_id() {
-		return "/find_forgot_id";
+		return "thymeleaf/member/login_id_forgot_find";
 	}
 	
 	@RequestMapping("/findPass")
 	public String show_pass() {
-		return "/find_forgot_pass";
+		return "thymeleaf/member/login_pass_forgot_find";
 	}
 	
 	@RequestMapping("/signupAgreement")
