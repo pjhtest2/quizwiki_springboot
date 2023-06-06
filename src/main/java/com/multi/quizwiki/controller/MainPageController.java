@@ -9,10 +9,9 @@ public class MainPageController {
 	public MainPageController() {
 		
 	}
-	//테스트로 주석
 	
 	@RequestMapping("/main")
-	public String show_main() {
-		return "singleTemplate";
+	public String show_mainpage() {
+		return "thymeleaf/mainpage/mainpage";
 	}
 }
