@@ -170,7 +170,14 @@ img {
 .none {
   display: none;
 }
-
+.logo_wrap{
+    position: relative;
+   /*  left: 10rem; */
+    display: inline-block;
+    width: 80px!important;
+    height: 40px!important;
+    
+}
 @keyframes animateLogin {
   0% {
     transform: scale(1, 1);
