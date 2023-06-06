@@ -19,12 +19,11 @@ public class QBoardController {
 	}
 	@GetMapping("/freeboard/list")
 	public String show_freeboard_list() {
-		return "freeboard/list	";
+		return "/qboard/freeboard_list	";
 	}
 	
 	@GetMapping("/qboard/read")
 	public String show_qboard_read() {
-		System.out.println("리퀘스트 실험");
 		return "qboard/read";
 	}
 
