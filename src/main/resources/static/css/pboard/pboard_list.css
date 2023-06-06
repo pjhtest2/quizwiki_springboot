@@ -39,20 +39,6 @@
 }
 
 
-#pboard-content-section{
-    width: 100%;
-    padding: 30px 0;
-
-    background-color: #f5f5f5;
-}
-
-#pboard-content{
-    width: 1200px;
-    display: flex;
-    justify-content: space-between;
-    margin: 0 auto;
-}
-
 #pboard-list{
     width: 880px;
     height: fit-content;

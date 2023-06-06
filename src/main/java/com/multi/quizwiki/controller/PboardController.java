@@ -14,21 +14,21 @@ public class PboardController {
 
 	@RequestMapping("/pboard/list")
 	public String show_pboard_list() {
-		return "pboard/list";
+		return "thymeleaf/pboard/pboard_list";
 	}
 	
 	@GetMapping("/pboard/write")
 	public String show_pboard_write() {
-		return "pboard/write";
+		return "thymeleaf/pboard/pboard_write";
 	}
 	
 	@GetMapping("/pboard/read")
 	public String show_pboard_read() {
-		return "pboard/read";
+		return "thymeleaf/pboard/pboard_read";
 	}
 	
 	@GetMapping("/cbt")
 	public String show_cbt() {
-		return "pboard/cbt";
+		return "thymeleaf/pboard/cbt";
 	}
 }
