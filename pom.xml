@@ -17,6 +17,15 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+
+	<!-- 대학교 메일 인증을 위한 추가 -->
+	<!-- <repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories> -->
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -68,6 +77,14 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		</dependency>
+
+		<!-- 대학교 메일 인증을 위한 추가, 이거 추가하니까 오류나는뎅..?-->
+		<!-- <dependency>
+			<groupId>com.github.User</groupId>
+			<artifactId>Repo</artifactId>
+			<version>Tag</version>
+		</dependency> -->
+
 	</dependencies>
 
 	<build>
