@@ -5,8 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css"
-	href="/css/qboard/qna.css" />
+<link rel="stylesheet" type="text/css" href="/css/qboard/qna.css" />
 </head>
 <body>
 	<section class="content">
@@ -15,11 +14,14 @@
 				<h1>이 문제는 어떻게 풀어야 하나요?</h1>
 			</div>
 		</div>
-		<div class="header_sub-title">
+		<div class="header_sub-title flex-row">
+			<img class="comment_user-profile" alt="" src="" />
+			<div class="flex-column">
 			<h6 class=user-name>
 				<a>shj</a>
 			</h6>
 			<div class="header__sub-title__content">
+
 
 				<div class="content-date">
 					<span class="sub-title sub-title__created-at"> <span
@@ -28,6 +30,7 @@
 						class="sub-title__title">조회수</span> <span class="sub-title__value">42</span>
 					</span>
 				</div>
+			</div>
 			</div>
 		</div>
 		<div class="post-content">
@@ -66,6 +69,8 @@
 					<div class="answer_comment">
 						<div class="comment-card">
 							<div class="comment_header flex-row">
+								<img class="comment_user-profile" alt="" src="" />
+
 								<div class="comment_sub-header">
 									<div class="comment_user-name-container">
 										<a href="" class="comment_user-name">code</a>
@@ -83,10 +88,12 @@
 
 						</div>
 						<div class="comment_re-comment">
-							<div class="re-comment__header flex-row">
+							<div class="re-comment__header flex-row"
+								style="justify-content: space-between;">
 								<h4 class="re-comment__title">답글</h4>
 								<button
-									class="ac-button is-md is-text re-comment__fold-button e-fold " style="float:right;">
+									class="ac-button is-md is-text re-comment__fold-button e-fold "
+									style="float: right;">
 									접기
 									<svg width="16" xmlns="http://www.w3.org/2000/svg" height="16"
 										viewBox="0 0 16 16">
@@ -100,7 +107,7 @@
 
 									<button
 										class="ac-button is-md is-text re-comment__open-editor-button e-open-re-comment-editor ">답글
-										달기</button>	
+										달기</button>
 								</div>
 							</div>
 						</div>
