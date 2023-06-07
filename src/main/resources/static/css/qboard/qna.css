@@ -134,11 +134,8 @@ button, select {
     text-transform: none;
 }
 
-    font-size: .875rem;
-    line-height: 1.25rem;
-}
 
-}
+
 .flex {
     display: flex;
 }
@@ -154,10 +151,7 @@ button, select {
     text-transform: none;
 }
 
-@media screen and (max-width: 1024px)
-.community-header {
-    padding: 24px 32px;
-}
+
 
 .community-header {
     padding: 24px 0;
@@ -643,7 +637,6 @@ a {
 .flex-row{
 	display:flex;
 	flex-direction:row;
-	justify-content: space-between;
 }
 
 .comment_header {
@@ -739,3 +732,19 @@ h4{
 .pg___questions_detail .content-date .sub-title__value span {
     font-weight: 500;
 }
+
+.comment_user-profile {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+    border-radius: 100px;
+    border: 1px solid #f1f3f5;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+img {
+	    max-width: 100%;
+    display: block;
+}
+
