@@ -68,6 +68,8 @@ img {
 }
 .login__forms {
   position: relative;
+  width: 30vw;
+    justify-self: center;
   height: 400px;
   left: 100px;
 }
@@ -189,17 +191,59 @@ img {
     transform: scale(1, 1);
   }
 }
-@media screen and (min-width: 576px) {
-  .login__forms {
-    width: 30vw;
+
+
+/* @media screen and (max-width: 768px){
+.login__forms {
+    width: 500px;
     justify-self: center;
+} 
+}*/
+
+/* @media screen and (min-width: 576px) {
+  .login__forms {
+    height: 85vh;
+    width: 30vw;
+    justify-content: center;
   }
 }
+
+@media screen and (max-width: 576px){
+.login__forms {
+    height: 85vh;
+    width: 30vw;
+    justify-content: center;
+	}
+} */
+
+@media screen and (min-width: 0px) {
+  .login__forms {
+    /* width: 30vw; */
+    width: 500px;
+    
+    justify-self: center;
+  }
+   .login__register {
+    bottom: -13.7rem;
+    right: 2rem;
+    justify-content: center;
+  }
+  
+}
+@media screen and (max-width: 1024px) {
+	.login__forms {
+    	top:1.5rem;
+    	right:3rem;
+	}
+}
+
 @media screen and (min-width: 1024px) {
   .login {
     height: 100vh;
     overflow: hidden;
+    justify-content: center;
   }
+  
   .login__content {
     grid-template-columns: repeat(2, max-content);
     justify-content: center;
@@ -222,10 +266,9 @@ img {
     left: -11rem;
   }
   .login__register {
-    bottom: -2rem;
+    bottom: -4rem;
   }
   .login__create {
     bottom: -5.5rem;
   }
- 
 }
