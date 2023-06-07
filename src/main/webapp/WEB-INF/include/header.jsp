@@ -28,7 +28,7 @@
                 <a href="/login.do" class="shift-between">
                     로그인
                 </a>
-                <a href="/signupAgreement" class="shift-between">
+                <a href="/signupType" class="shift-between">
                     회원가입
                 </a>
                 <a href="/faqt">
