@@ -6,11 +6,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quiz Wiki 회원가입</title>
 
+<!-- 고등학생용 회원가입 양식 -->
+
+<!-- 우편번호 -->
 <script type="text/javascript"
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<!-- js -->	
 <script type="text/javascript" src="./js/member/zipcode.js"></script>
 <script type="text/javascript" src="./js/member/signup.js"></script>
 <script type="text/javascript" src="./js/member/check.js"></script>
+
 <!-- cdn -->
 <script src="https://kit.fontawesome.com/e92cf22849.js"
 	crossorigin="anonymous"></script>
@@ -18,8 +24,7 @@
 <!-- 글꼴 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
 	rel="stylesheet">
 
 <!-- CSS -->
@@ -45,7 +50,7 @@
 		<div class="input-form-backgroud row">
 
 			<div class="input-form col-md-12 mx-auto">
-				<h4 class="mb-3">회원가입</h4>
+				<h4 class="mb-3">회원가입 - 고등학생</h4>
 				<form class="validation-form" novalidate>
 					<div class="row">
 						<div class="col-md-11 mb-3">
@@ -95,7 +100,7 @@
 							<div class="invalid-feedback">성별을 선택해주세요.</div>
 						</div>
 					</div>
-					
+					<!-- 학교 받아올 수 있게 되면 추가해보기! -->
 					<div class="row">
 						<div class="col-md-11 mb-3">
 							<label for="grade">학년</label> 
@@ -202,15 +207,7 @@
 
 					<hr class="mb-4">
 
-					<div class="col-md-6 mb-3">
-						<div class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input"
-								id="aggrement_personal" required> <label
-								class="custom-control-label" for="aggrement_personal">
-								개인정보 수집 및 이용에 동의</label>
-							<div class="invalid-feedback">약관에 동의해주세요.</div>
-						</div>
-					</div>
+					
 					<div class="col-md-6 mb-3">
 						<div class="custom-control custom-checkbox">
 							<input type="checkbox" class="custom-control-input"
