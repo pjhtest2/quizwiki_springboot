@@ -10,21 +10,21 @@ public class QBoardController {
 
 	@RequestMapping("/qboard/list")
 	public String show_qboard_list() {
-		return "qboard/list";
+		return "thymeleaf/qboard/qboard_list";
 	}
 	
 	@GetMapping("/qboard/write")
 	public String show_qboard_write() {
-		return "qboard/write";
+		return "thymeleaf/qboard/qboard_write";
 	}
 	@GetMapping("/freeboard/list")
 	public String show_freeboard_list() {
-		return "/qboard/freeboard_list	";
+		return "thymeleaf/qboard/freeboard_list	";
 	}
 	
 	@GetMapping("/qboard/read")
 	public String show_qboard_read() {
-		return "qboard/read";
+		return "thymeleaf/qboard/qboard_read";
 	}
 
 }
