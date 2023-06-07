@@ -69,6 +69,8 @@ img {
 .login__forms {
   position: relative;
   height: 400px;
+  width: 500px;
+    justify-self: center;
   left: 100px;
 }
 .login__register{
@@ -189,6 +191,7 @@ img {
     transform: scale(1, 1);
   }
 }
+
 @media screen and (min-width: 576px) {
   .login__forms {
     width: 30vw;
