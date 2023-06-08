@@ -96,6 +96,9 @@
 
 	</div>
 
+
+
+<!--====================== modal popup ================ -->
 	<div id="add_popup">
 		<div id="add_popup_bg"></div>
 		<form id="add_popup_form">
@@ -106,16 +109,14 @@
 				<div class="add_popup_cbox">
 					<fieldset>
 						<legend>문제 유형</legend>
-						<div style="align-self: center;">
+						<div class="cbox-item">
 							<input id="stype-ratio" type="radio" name="type" value="s" /> <label
 								for="stype-ratio"> <span class="round">라디오버튼</span> <i
 								class="far fa-comment-dots"></i> 주관식
 							</label>
 						</div>
 
-						<div style="align-self: center;" class="cbox-shifter"></div>
-
-						<div style="align-self: center;">
+						<div class="cbox-item">
 							<input id="mtype-ratio" type="radio" name="type" value="m"
 								checked /> <label for="mtype-ratio"> <span class="round">라디오버튼</span>
 								<i class="fa-solid fa-list"></i> 객관식
@@ -132,49 +133,46 @@
 				<div class="add_popup_maker">
 					<div class="pmaker_item">
 						<h4>문제 내용:</h4>
-						<input class="custom-input" type="text" />
+						<input name="content" class="custom-input" type="text" />
 					</div>
 
 					<div class="pmaker_item">
 						<h4>지문:</h4>
-						<textarea rows="3" class="custom-input"></textarea>
+						<textarea name="print" rows="3" class="custom-input"></textarea>
 					</div>
 
 					<div class="pmaker_item">
 						<h4>지문 첨부파일:</h4>
-						<input class="custom-input" type="file" />
+						<input name="printfile" class="custom-input" type="file" />
 					</div>
 
 					<div class="mp-items">
 						<div class="pmaker_item">
 							<h4>선택지:</h4>
 							<ul id="pmaker_answer_list">
-								<li><input class="custom-input" type="text" /></li>
-								<li><input class="custom-input" type="text" /></li>
+								<li><input class="custom-input" type="text" onkeyup="syncChoise(this)"/></li>
+								<li><input class="custom-input" type="text" onkeyup="syncChoise(this)"/></li>
 							</ul>
 						</div>
+						<div class="add-popup-btn blue-btn" onclick="makeChoise()">선택지 추가</div>
 					</div>
 					
 					<div class="pmaker_item">
 						<h4>정답:</h4>
-						<input class="custom-input sp-items" type="text" />
-						<div class="pmaker_answer_cbox mp-items">
-							<fieldset>
+						<input name="sp-answer" class="custom-input sp-items" type="text" />
+						<div id="mp-answer" class="pmaker_answer_cbox mp-items">
+							<fieldset id="answer-field">
 								<legend>정답</legend>
-								<div style="align-self: center;">
-									<input id="answer-ratio" type="radio" name="answer" value="1"
-										checked /> <label for="answer-ratio"> <span
-										class="round">라디오버튼</span> 1
-									</label>
+								<div>
 								</div>
-
-								<div style="align-self: center;" class="cbox-shifter"></div>
-
-								<div style="align-self: center;">
+								<div class="answer-item">
+									<input id="answer-ratio" type="radio" name="answer" value="1" checked />
+									<label for="answer-ratio"><span class="answer-ratio-text">1</span><span class="round"></span></label>
+								</div>
+								
+								<div class="answer-item">
 									<input id="answer-ratio2" type="radio" name="answer" value="2" />
-									<label for="answer-ratio2"> <span class="round">라디오버튼</span>
-										2
-									</label>
+									<label for="answer-ratio2"><span class="answer-ratio-text">2</span><span class="round"></span></label>
 								</div>
 							</fieldset>
 						</div>
@@ -182,7 +180,7 @@
 
 					<div class="pmaker_item">
 						<h4>해설:</h4>
-						<textarea rows="3" class="custom-input"></textarea>
+						<textarea name="desc" rows="3" class="custom-input"></textarea>
 					</div>
 
 				</div>
@@ -193,26 +191,16 @@
 					</h2>
 					<div class="problem_preview">
 
-						<p class="problem_content">1. 다음 글의 상황에 나타난 분위기로 가장 적절한 것은?</p>
+						<p id="precontent" class="problem_content"></p>
 
 						<div class="problem_print">
-							<pre>
-At dinner I sat between my grandmother and Aunt Gloria. My grandmother, 
-a thin, nervous woman who seldom spoke when my grandfather was present,
-concentrated during the meal on cutting her ham into small perfect triangles
-before she ate them. Whenever she passed a dish to me, she asked quietly,
-“Do you like this, David?” and her questions seemed so eager and pathetic 
-that I said yes to everything. As a result, my plate was 
-piled high with sweet potatoes and cooked carrots and sliced tomatoes
-and cottage cheese and kidney beans and corn bread and ham.
-And I had no appetite.
-*pathetic 애처로운
+							<pre id="preprint">
                             </pre>
 						</div>
 
-						<ul class="problem_answer_list mp-items">
-							<li>happy and lively</li>
-							<li>busy and urgent</li>
+						<ul id="pre-answer-list" class="problem_answer_list mp-items">
+							<li></li>
+							<li></li>
 						</ul>
 					</div>
 				</div>
@@ -252,74 +240,243 @@ And I had no appetite.
 
 	<script type="text/javascript">
 	
-	/* plist Drag And Drop */
-		let plist = document.querySelector("#plist-body");
-		
-		let picked = null;
-		let pickedIndex = null;
-		
-		plist.addEventListener("dragstart",(e)=>{
-			let obj = e.target;
-			
-			picked = e.target;
-			pickedIndex = [...obj.parentNode.children].indexOf(obj);
-			picked.classList.add("picked-item");
-		});
-		
-		plist.addEventListener("dragover",(e)=>{
-			e.preventDefault();
-		});
-		
-		plist.addEventListener("drop",(e)=>{
-			picked.classList.remove("picked-item");
-			if(picked.getAttribute("draggable") != "true") return;
-			
-			let el = e.target.parentNode;
-			if(el.tagName != "TR" || !el.classList.contains("putable")) return;
-			
-			let index = [...(el.parentNode.children)].indexOf(el);
-			
-			(index > pickedIndex) ? el.after(picked) : el.before(picked)
-		});
-		
-	/* plist Drag And Drop end. */
+
 	
-	/* plist-add-btn */
+	
+	
+	
+	/*==============initialized=================*/
+	/* popup addform 안의 input요소 빼기 쉽게 최상위태그 form 변수에 담아둠*/
+	let addform = document.getElementById("add_popup_form");
+	
+	/* plist 현재 작성중인 게시글에서 문제list 변수에 담아둠*/
+	let problemList = [
+		
+	];
+	
+	/* 문제추가 폼에서 보여지는 문제 객체 선언 */
+	let currentProblem = {};
+	
+	/* 동기화할때 접근하기 쉽게 변수에 담아둠 */
+	let answerList = document.getElementById("pmaker_answer_list");
+	let preAnswerList = document.getElementById("pre-answer-list");
+	let answerField = document.getElementById("answer-field");
+	
+	/* ======================================*/
+	
+	
+	
+	
+	
+	
+	
+	
+	/*================== UI ITEMS EventHandler===================== */
+	/* plist-add-btn (문제 추가 버튼)*/
+	currentProblem = {};
 	let plistAddBtn = document.getElementById("plist-add-btn");
 	let plistAddPopup = document.getElementById("add_popup");
 	plistAddBtn.addEventListener("click", ()=>{
 		document.body.style.overflow = "hidden";
 		plistAddPopup.style.display = "block";
+		typeCheck();
 	});
 	/* plist-add-btn end. */
 	
-	/* add-popup-close */
+	/* add-popup-close (문제 추가 팝업 닫기 버튼)*/
 	let addPopupCloseBtn = document.getElementById("add-popup-close");
 	addPopupCloseBtn.addEventListener("click", ()=>{
 		document.body.style.overflow = "auto";
 		plistAddPopup.style.display = "none";
 	});
-	/* add-popup-close end. */
 	
 	
-	/* =================================================== */
+	/*plist Drag And Drop (문제리스트 드래그드롭 관련)*/
+	let plist = document.querySelector("#plist-body");
 	
-	/* add_popup_form */
-	let addform = document.getElementById("add_popup_form");
-	typeCheck();
+	let picked = null;
+	let pickedIndex = null;
 	
+	plist.addEventListener("dragstart",(e)=>{
+		let obj = e.target;
+		
+		picked = e.target;
+		pickedIndex = [...obj.parentNode.children].indexOf(obj);
+		picked.classList.add("picked-item");
+	});
+	
+	plist.addEventListener("dragover",(e)=>{
+		e.preventDefault();
+	});
+	
+	plist.addEventListener("drop",(e)=>{
+		picked.classList.remove("picked-item");
+		if(picked.getAttribute("draggable") != "true") return;
+		
+		let el = e.target.parentNode;
+		if(el.tagName != "TR" || !el.classList.contains("putable")) return;
+		
+		let index = [...(el.parentNode.children)].indexOf(el);
+		
+		(index > pickedIndex) ? el.after(picked) : el.before(picked)
+	});
+	/* plist Drag And Drop end. */
+	
+	/* ptype radio (문제 종류 라디오 버튼 )*/
 	addform.addEventListener('change', function(){
 		typeCheck();
 	});
+	/* ptype radio end*/
+	
+	/* pcontent input keyup (문제 내용 인풋)*/
+	let precontent = document.getElementById("precontent");
+	addform.content.addEventListener("keyup", function(){
+		precontent.textContent = this.value;
+	});
+	/* pcontent input keyup end */
+	
+	/* pprint input keyup (지문 인풋)*/
+	let preprint = document.getElementById("preprint");
+	addform.print.addEventListener("keyup", function(){
+		preprint.textContent = this.value;
+	});
+	/* pcontent input keyup end */
+	/* =================================================== */
 	
 	
-	/* plist */
-	let problemList = [
+	/*================== FUNCTIONS   ===================== */
+	// 객관식문제 선택지 만들기
+	function makeChoise(){
+		if(answerList.childElementCount >= 5){
+			alert("선택지는 최대 5개까지 추가할 수 있습니다.");
+			return;
+		}
 		
-	];
+		
+	    let li = document.createElement("li");
+	    
+	    let answerWrap = document.createElement("div");
+	    answerWrap.classList.add("answer-wrap");
+
+	    let customInput = document.createElement("input");
+	    customInput.setAttribute("type","text");
+	    customInput.classList.add("custom-input");
+	    
+	    
+	    let deleteBtn = document.createElement("div");
+	    deleteBtn.classList.add("answer-delete-btn");
+	    
+
+	    let deleteIcon = document.createElement("i");
+	    deleteIcon.classList.add("fa-solid");
+	    deleteIcon.classList.add("fa-delete-left");
+
+	    deleteBtn.appendChild(deleteIcon);
+	    answerWrap.appendChild(customInput);
+	    answerWrap.appendChild(deleteBtn);
+	    
+	    li.appendChild(answerWrap);
+	    
+	    answerList.appendChild(li);
+	    
+	    customInput.addEventListener("keyup",function(){syncChoise(this)});
+	    deleteBtn.addEventListener("click",()=>{deleteChoise(deleteBtn)});
+	    
+	    /* 정답 선택 라디오박스 만들기 */
+	    makeAnswerRadio();
+	    
+	    /* 프리뷰 li만들기 */
+	    let preli = document.createElement("li");
+	    preAnswerList.appendChild(preli);
+	    
+	}
+	
+	//문제 선택지 정답 라디오 버튼 만들기(?)
+	function makeAnswerRadio(){
+	    let answerInputList = document.querySelectorAll('input[name="answer"]');
+	    let inputVal = answerInputList.length+1;
+
+	    let answerItem = document.createElement("div");
+	    answerItem.classList.add("answer-item");
+
+	    let answerInput = document.createElement("input");
+	    answerInput.setAttribute("type","radio");
+	    answerInput.setAttribute("name","answer");
+	    answerInput.setAttribute("value",inputVal);
+	    answerInput.id = "answer-ratio"+inputVal;
+
+	    let label = document.createElement("label");
+	    label.setAttribute("for","answer-ratio"+inputVal);
+	    
+	    let labelSpan = document.createElement("span");
+	    labelSpan.classList.add("answer-ratio-text");
+	    
+	    labelSpan.textContent = inputVal;
+	    let span = document.createElement("span");
+	    span.classList.add("round");
+
+	    label.appendChild(labelSpan);
+	    label.appendChild(span);
+
+	    answerItem.appendChild(answerInput);
+	    answerItem.appendChild(label);
+		
+	    answerField.appendChild(answerItem);
+	}
+	
+	// 객관식문제 선택지 지우기
+	function deleteChoise(el){
+		let parentLi = el.parentElement.parentElement;
+		let count = 0;
+		while(parentLi.tagName != "LI"){
+			parentLi = el.parentElement;
+			count++;
+			if(count > 10) return;
+		}
+		let index = $(parentLi).index()+1;
+		$(parentLi).remove();
+		
+		
+		/* 정답 선택지 지우기 */
+		for(let i = index+1; i<=5; i++){
+			console.log(i);
+			let tg = $(`input[name='answer'][value=${i}]`);
+			tg.val(i-1);
+			tg.attr('id','answer-ratio'+(i-1));
+			
+			let labelfor = "answer-ratio"+i;
+			
+			let label = $(`label[for=${labelfor}]`);
+			label.attr('for', 'answer-ratio'+(i-1));
+			label.find('.answer-ratio-text').text(i-1);
+
+		}
+		
+		/* 프리뷰 li 지우기 */
+		$(preAnswerList).children().eq(index-1).remove();
+				
+		// 인풋박스 지우기
+		$("#answer-ratio"+index).parent().remove();
+	}
 	
 	
-	/* func */
+	// 객관식문제 내용 preview 동기화
+	// 동적으로 생성되는 요소에 이벤트리스너를 달아줘야하므로 펑션으로 정의해둠.
+	function syncChoise(el){
+		let parentLi = el.parentElement.parentElement;
+		let count = 0;
+		
+		while(parentLi.tagName != "LI"){
+			parentLi = el.parentElement;
+			count++;
+			if(count > 10) return;
+		}
+		
+		let index = $(parentLi).index();
+		preAnswerList.children[index].textContent = el.value;
+	}
+	
+	// 문제 객체 만들어서 문제리스트에 push
 	function makeProblem(type,content,print,printfile,choise,answer,desc){
 		let p = {};
 		p.type=type;
@@ -333,6 +490,7 @@ And I had no appetite.
 		problemList.push(p);
 	}
 	
+	// 문제 타입체크해서 html 조정
 	function typeCheck(){
 		if(addform.type.value=="m"){
 			$(".mp-items").css('display','block');
@@ -342,7 +500,7 @@ And I had no appetite.
 			$(".sp-items").css('display','block');
 		}
 	}
-	/* func end */
+	/* =================================================== */
 	</script>
 </body>
 </html>
