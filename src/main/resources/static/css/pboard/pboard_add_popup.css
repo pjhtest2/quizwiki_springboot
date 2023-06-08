@@ -217,6 +217,10 @@ textarea.custom-input{
 .pmaker_answer_cbox{
 	align-self: center;
 }
+.answer-item{
+	align-self: center;
+	padding:5px;
+}
 
 .add_popup_cbox label{
 	cursor: pointer;
@@ -227,6 +231,7 @@ textarea.custom-input{
 }
 
 #pmaker_answer_list{
+	width:80%;
 	font-family: "Pretendard";
 	list-style-type: decimal;
 }
@@ -286,6 +291,25 @@ textarea.custom-input{
 	background: white;
     outline:3px solid #932b2b;
     color: #932b2b;
+}
+
+.answer-wrap{
+	display:flex;
+}
+.answer-delete-btn{
+	cursor:pointer;
+	color:#cd4141;
+	margin-left:5px;
+	width:15px;
+	height:15px;
+	align-self: center;
+}
+
+.cbox-item{
+	align-self: center;
+}
+
+.answer-ratio-text{
 }
 
 
