@@ -1,17 +1,15 @@
 	<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+	<html xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{/layout/qboard_layout}"
-layout:fragment="content">
+layout:fragment="content"><head>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css"
-	href="/css/qboard/qna.css" />
-<link rel="stylesheet" type="text/css"
-	href="/css/qboard/style.css" />
-<link rel="stylesheet" type="text/css"
-	href="/css/qboard/bootstrap.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/qboard/qna.css}"/>
+	
+<link rel="stylesheet"  th:href="@{/css/qboard/style.css}" />
+<link rel="stylesheet"  th:href="@{/css/qboard/bootstrap.css}" />
 
 <script type="text/javascript" src="/js/qboard/qna.js"></script>
 <!-- <link rel="stylesheet"
@@ -48,7 +46,7 @@ layout:fragment="content">
 
 
 		<!-- 본문블럭 시작-->
-		<div id="mainBlock">
+		<div id="mainBlock" >
 
 			<!-- 2. 사이드바 -->
 			<div id="aside">
