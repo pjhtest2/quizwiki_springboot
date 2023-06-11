@@ -21,7 +21,7 @@ public class PboardDTO {
 	private String status; //게시물상태flag varchar(1)
 	
 	
-	private List<problemDTO> plist; //문제리스트 list
+	private List<ProblemDTO> plist; //문제리스트 list
 	
 	//insert용 (문제게시물 작성)
 	public PboardDTO(String member_id, int scate_id, String content, Timestamp regdate) {

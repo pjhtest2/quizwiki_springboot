@@ -43,7 +43,7 @@
 }
 
 
-#editor-form{
+#editorform{
 	margin: 0 auto;
     padding: 15px 20px;
     margin-bottom: 30px;
@@ -61,7 +61,7 @@
     color: #212121;
 }
 
-#editor-form #smart_editor2{
+#editorform #smart_editor2{
 	width: 100%;
 }
 
