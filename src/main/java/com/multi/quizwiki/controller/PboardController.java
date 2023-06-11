@@ -16,8 +16,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.multi.quizwiki.entity.PboardEntity;
-import com.multi.quizwiki.entity.ProblemEntity;
+import com.multi.quizwiki.entity.pboard.PboardEntity;
+import com.multi.quizwiki.entity.problem.ProblemEntity;
 import com.multi.quizwiki.service.PboardService;
 
 

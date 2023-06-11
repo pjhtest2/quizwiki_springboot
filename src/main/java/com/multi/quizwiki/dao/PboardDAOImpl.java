@@ -4,9 +4,9 @@ import javax.persistence.EntityManager;
 
 import org.springframework.stereotype.Repository;
 
-import com.multi.quizwiki.entity.PboardEntity;
-import com.multi.quizwiki.entity.ProblemChoiseEntity;
-import com.multi.quizwiki.entity.ProblemEntity;
+import com.multi.quizwiki.entity.pboard.PboardEntity;
+import com.multi.quizwiki.entity.problem.ProblemChoiseEntity;
+import com.multi.quizwiki.entity.problem.ProblemEntity;
 
 @Repository
 public class PboardDAOImpl implements PboardDAO{

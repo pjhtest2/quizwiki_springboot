@@ -1,4 +1,4 @@
-package com.multi.quizwiki.entity;
+package com.multi.quizwiki.entity.problem;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,19 +12,20 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "problem_choise")
-public class ProblemChoiseEntity {
+@Table(name = "print_file")
+public class PrintFileEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int problemChoiseId;
+	int printFileId;
 	int problemId;
-	String index;
-	String content;
+	String origin;
+	String store;
 	
-	public ProblemChoiseEntity(int problemId, String index, String content) {
+	
+	public PrintFileEntity(int problemId, String origin, String store) {
 		this.problemId = problemId;
-		this.index = index;
-		this.content = content;
+		this.origin = origin;
+		this.store = store;
 	}
 	
 	

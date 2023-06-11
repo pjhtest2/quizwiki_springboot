@@ -1,4 +1,4 @@
-package com.multi.quizwiki.entity;
+package com.multi.quizwiki.entity.problem;
 
 import java.sql.Timestamp;
 
