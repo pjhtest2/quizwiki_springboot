@@ -5,18 +5,18 @@
   <mapper namespace="com.multi.quizwiki.qboard">
   <!--게시물 등록  -->
   	<insert id="insert" parameterType="qboard">
-  		insert into qboard VALUES (#{memberId}, #{title}, #{content},now(), null, #{showCount}, #{likeCount} )
+  		insert into qboard VALUES (#{memberId},null, #{title}, #{content},now(), null, #{showCount}, #{likeCount},0,0 )
   	</insert>
   
-<!--   <select id="selectBoardDetail" parameterType="int" resultType="">
+  <!--  <select id="selectBoardDetail" parameterType="int" resultType="QboardDTO">
   	select * from qboard where qboard_id =#{qboard_id}
   	
   </select>
   
   <select id="selectall" resultType="QboardDTO">
-  	
+  		
   
-  </select> -->
-  
+  </select> 
+   -->
   
   </mapper>

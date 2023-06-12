@@ -7,10 +7,10 @@ public interface QboardService {
 	public int insert(QboardDTO qboard);
 
 
-	/* public List<QboardDTO> getBoardList(); */
+	 public List<QboardDTO> getBoardList(); 
 	
-	/*
-	 * public QboardDTO getQboardDetail(int qboard_id);
-	 */		
+	
+	 public QboardDTO getQboardDetail(int qboard_id);
+	 		
 
 }
