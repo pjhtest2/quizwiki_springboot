@@ -10,17 +10,19 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "solv")
 public class SolvEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int solvId;
+	String solvId;
 	int problemId;
 	String memberId;
 	String answer;
