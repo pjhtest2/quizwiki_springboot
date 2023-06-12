@@ -1,7 +1,9 @@
 package com.multi.quizwiki.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MemberController {
@@ -16,21 +18,25 @@ public class MemberController {
 		return "thymeleaf/member/login";
 	}
 
+	// 로그인 -> 아이디 찾기
 	@RequestMapping("/findId.do")
 	public String show_id_forgot() {
 		return "thymeleaf/member/login_id_forgot";
 	}
 
+	// 로그인 -> 비밀번호 찾기
 	@RequestMapping("/findPass.do")
 	public String show_pass_forgot() {
 		return "thymeleaf/member/login_pass_forgot";
 	}
 
+	// 해당 아이디 보여주기
 	@RequestMapping("/findId")
 	public String show_id() {
 		return "thymeleaf/member/login_id_forgot_find";
 	}
 
+	// 임시 비밀번호 발급
 	@RequestMapping("/findPass")
 	public String show_pass() {
 		return "thymeleaf/member/login_pass_forgot_find";
@@ -65,4 +71,6 @@ public class MemberController {
 	public String show_signup2() {
 		return "thymeleaf/member/signup2";
 	}
+	
+	
 }
