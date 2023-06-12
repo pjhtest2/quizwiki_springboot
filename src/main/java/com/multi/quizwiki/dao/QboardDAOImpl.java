@@ -15,13 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class QboardDAOImpl implements QboardDAO {
-
+	@Autowired
 	SqlSession template;
 
 	@Override
 	public int insert(QboardDTO qboard) {
-		int result = template.insert("com.multi.quizwiki.qboard.insert", qboard);
-		return result;
+		log.info("write.do dao 실행");
+		System.out.println("dao 실행");
+		return template.insert("com.multi.quizwiki.qboard.insert",qboard);
 	}
 
 	@Override

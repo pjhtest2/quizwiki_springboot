@@ -13,8 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class QboardDTO {
 	private int qboard_id;
-	private String member_id; //FK 회원아이디 varchar(20)
-	private String board_cate_id;
+	/*
+	 * private String member_id; //FK 회원아이디 varchar(20) private String
+	 * board_cate_id;
+	 */
 	private String title; // //게시물 제목
 	private String content; //게시물내용 text
 	private Timestamp regdate; // 게시물등록시간 datetime
@@ -24,13 +26,7 @@ public class QboardDTO {
 	 */
 	
 	
-	public QboardDTO(int qboard_id, String title, String content, Timestamp regdate) {
-		super();
-		this.qboard_id = qboard_id;
-		this.title = title;
-		this.content = content;
-		this.regdate = regdate;
-	}
+	
 	
 }
 	

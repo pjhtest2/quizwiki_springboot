@@ -2,6 +2,7 @@ package com.multi.quizwiki.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("quizwiki")
 @RequiredArgsConstructor
 public class QboardController {
+	@Autowired
 	QboardService qboardservice;
 
 	@RequestMapping("/qboard/list")
@@ -40,13 +42,14 @@ public class QboardController {
 	}
 	
 	@RequestMapping("/qboard/write.do")
-	public String QboardWrite(@RequestParam(value="qboard_id",required=false) int qboard_id, Model model) {
-		log.info("write.do실행" +qboard_id);
-		 
-			model.addAttribute("qboard", new QboardDTO());
+	public String QboardWrite(QboardDTO qboard, Model model) {
+			log.info("write.do실행" +qboard.getQboard_id());
+		 	 
+			qboardservice.insert(qboard);
+		 	 
 		 
 			 
-		return "thymeleaf/qboard/qboard_list";
+		return "thymeleaf/qboard/qboard_write";
 	}
 	
 	

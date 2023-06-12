@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.multi.quizwiki.dao.QboardDAO;
 import com.multi.quizwiki.dto.QboardDTO;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class QboardServiceImpl implements QboardService {
 
@@ -21,8 +23,8 @@ public class QboardServiceImpl implements QboardService {
 
 	@Override
 	public int insert(QboardDTO qboard) {
-		int result = qboarddao.insert(qboard);
-		return result;
+		log.info("insert service 실행" +qboard.getQboard_id());
+		return qboarddao.insert(qboard);
 
 	}
 

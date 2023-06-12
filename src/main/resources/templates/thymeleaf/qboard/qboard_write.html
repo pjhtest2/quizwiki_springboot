@@ -69,7 +69,7 @@ layout:fragment="content">
 
 		<div id="content_body">
 
-			<form method="post"   th:action="@{qboard/write.do}">
+			<form method="post"   th:action="@{/quizwiki/qboard/write.do}">
 				<select id="inSubject" autocomplete="categoryCode"
 					class="form-control" name="categoryCode">
 					<option value="" class="">과목을 선택해주세요.</option>
@@ -77,12 +77,13 @@ layout:fragment="content">
 					<option   th:value="english" class="">영어</option>
 					<option   th:value="math" class="">수학</option></select> 
 					<input type="text"   id="title" name="title" th:value="title"   class="form-control" placeholder="제목" required />
-				<textarea name="content" th:value="content" id="se2" placeholder="질문 내용을 입력하세요." required></textarea>
-				
+<!-- 				<textarea name="content" th:value="content" id="se2" placeholder="질문 내용을 입력하세요." required></textarea>
+ -->				
 				<div class="form-group">
 			      <input type="file" class="form-control-file border" name="file" >
 			    </div>
-				
+				<textarea class="form-control" id="inContent" name="content"
+					placeholder="질문 내용을 입력하세요." required></textarea>
 				<span style='float: right;'> <input type="button"
 					class="btn btn-default" value="취소" onclick="history.back();" /> <input 
 					type="submit" class="btn btn-success" value="질문등록" />	
