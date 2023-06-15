@@ -36,7 +36,7 @@
 	color: #4A89DC;
 }
 
-#inSubject {
+#title {
 	margin: 10px 0px;
 	/* width:710px;
 	display: inline; */
@@ -265,8 +265,8 @@ question .title-sub__text .course__title {
 
 .question .question__body {
     height: 24px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+/*     overflow: hidden;
+ */    text-overflow: ellipsis;
     white-space: nowrap;
     white-space: normal;
     line-height: 1.5;
@@ -292,12 +292,14 @@ question .title-sub__text .course__title {
     color: #868e96;
     font-size: 12px;
     font-weight: 400;
+    max-height: 20px;
 }
 
 .question .question__info-footer .question__info-detail {
     flex: 1 1 auto;
     width: 0;
     max-width: 520px;
+    max-height: 20px;
 }
 
 .question .question__info-footer>div {
@@ -341,6 +343,11 @@ li {
 .question .question__info-footer .question__info-userData dl dd .text {
     font-size: 12px;
     font-weight: 700;
+    
+    
+}
+.question .question__info-footer .question__info-userData dl {
+    display: flex;
 }
 .content {
 	    flex: 1 1 750px;

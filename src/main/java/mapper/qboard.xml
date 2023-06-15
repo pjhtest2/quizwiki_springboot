@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.multi.quizwiki.qboard">
+  <!--게시물 등록  -->
+  	<insert id="insert" parameterType="qboard">
+    INSERT INTO qboard (title, content, regdate)
+    VALUES (#{title}, #{content}, now())
+</insert>
+  
+  <select id="selectBoardDetail" parameterType="Long" resultType="qboard">
+  	select * from qboard where qboard_id =#{qboard_id}
+  	
+  </select> 
+ 
+  <select id="selectqboardlist" resultType="qboard" parameterType="qboard">
+  		select * from qboard ORDER BY regdate DESC
+  
+  </select> 
+    
+  
+  </mapper>

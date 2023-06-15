@@ -33,11 +33,9 @@ layout:fragment="content">
 <body>
 <div id="container">
 
-	<!-- 1. 현재 작업 위치 -->
 	<div id="locationBar">
 		<div id="locationBar_child">
 				
-				<!-- 해당페이지 제목(서브메뉴 제목) 과 해당 링크 수정 -->
 			</div>
 		
 		
@@ -47,7 +45,7 @@ layout:fragment="content">
 		<!-- 2. 사이드바 -->
 		<div id="aside">
 		
-			<div id="side_title">커뮤니티</div><!-- 제작 페이지의 카테고리 제목 -->
+			<div id="side_title">커뮤니티</div>
 		
 			
 				<div id="side_menu">
@@ -67,39 +65,36 @@ layout:fragment="content">
 	<div id="content">
 
 		<div id="content_title">궁금증 해결하기</div>
-		<!-- 본문 상단의 타이틀(해당페이지 제목) -->
 
 
 		<div id="content_body">
-			<!-- #content_body 박스 : 이하 본문 작성하시면됩니다.  -->
 
-			<form method="POST" action="">
+			<form method="post"   th:action="@{/quizwiki/qboard/write.do}">
 				<select id="inSubject" autocomplete="categoryCode"
-					class="form-control" name="categoryCode"><option value=""
-						class="">과목을 선택해주세요.</option>
-					<option value="tech" class="">국어</option>
-					<option value="career" class="">영어</option>
-					<option value="qna-etc" class="">수학</option></select> <input type="text"
-					id="inSubject" name="inSubject" class="form-control"
-					placeholder="제목" required />
-				<textarea name="se2" id="se2" rows="10" cols="100"></textarea>
+					class="form-control" name="categoryCode">
+					<option value="" class="">과목을 선택해주세요.</option>
+					<option   th:value="korean" 	class="">국어</option>
+					<option   th:value="english" class="">영어</option>
+					<option   th:value="math" class="">수학</option></select> 
+					<input type="text"   id="title" name="title" th:value="title"   class="form-control" placeholder="제목" required />
+<!-- 				<textarea name="content" th:value="content" id="se2" placeholder="질문 내용을 입력하세요." required></textarea>
+ -->				
 				<div class="form-group">
-			      <input type="file" class="form-control-file border" name="file">
+			      <input type="file" class="form-control-file border" name="file" >
 			    </div>
-				<textarea class="form-control" id="inContent" name="inContent"
+				<textarea class="form-control" id="inContent" name="content"
 					placeholder="질문 내용을 입력하세요." required></textarea>
 				<span style='float: right;'> <input type="button"
-					class="btn btn-default" value="취소" onclick="history.back();" /> <input
-					type="submit" class="btn btn-success" value="질문등록" />
+					class="btn btn-default" value="취소" onclick="history.back();" /> <input 
+					type="submit" class="btn btn-success" value="질문등록" />	
 				</span>
 
 			</form>
 
 		</div>
 	</div>
-
+  	
 	</div>
-	<!-- 본문블럭 끝-->
 <!-- se2 -->
     <script>
     var oEditors = [];
@@ -120,10 +115,9 @@ layout:fragment="content">
 		}
 	});
 	</script>
-	<!-- se2 end -->
 	
-
-
+	<script type="text/javascript"></script>
+	<script th:inline="javascript"></script>
 </body>
 
 </html>
