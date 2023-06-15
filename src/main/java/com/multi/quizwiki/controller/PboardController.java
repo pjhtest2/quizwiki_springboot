@@ -108,10 +108,9 @@ public class PboardController {
 	}
 	
 	@GetMapping("/pboard/cbt")
-	public String show_cbt(String no , Model model) {
+	public String show_pboard_cbt(String no , Model model) {
 		PboardEntity pboard = pboardService.pboard_findById(no);
-		model.addAttribute("title",pboard.getPboardTitle());
-		model.addAttribute("problemList",pboard.getProblemList());
+		model.addAttribute("pboard",pboard);
 		return "thymeleaf/pboard/cbt";
 	}
 	

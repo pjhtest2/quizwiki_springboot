@@ -11,7 +11,7 @@ xmlns:th="http://www.thymeleaf.org"
 <body>
     <div class="cbt-wrap">
         <div class="cbt-header-wrap">
-            <p class="cbt-title-text">국어 2016수능 기출문제</p>
+            <p class="cbt-title-text" th:text="${pboard.pboardTitle}"></p>
             <p class="cbt-timer">경과시간:<span id="cbt-timer-time">0분 0초<span></p>
         </div>
     
@@ -99,10 +99,30 @@ xmlns:th="http://www.thymeleaf.org"
             </div>
         </div>
     </div>
+    
 	<script type="text/javascript" th:inline="javascript">
-		const problemList = /*[[${problemList}]]*/'';
+		const problemList = /*[[${pboard.problemList}]]*/'';
 		
-		console.log(problemList);
+		
+		let time = 0;
+		const cbtTimer = document.getElementById("cbt-timer-time");
+		const timer = startTimer();
+		
+		//■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■function■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+		function startTimer(){
+			const interval = setInterval(()=>{
+				time++;
+				syncTime();
+			},1000);
+			
+			return interval;
+		}
+		function syncTime(){
+			let min = parseInt(time/60);
+			let sec = time%60;
+			cbtTimer.textContent = min+"분 "+sec+"초";
+		}
+		//■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■function■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 	</script>
 </body>
 </html>
