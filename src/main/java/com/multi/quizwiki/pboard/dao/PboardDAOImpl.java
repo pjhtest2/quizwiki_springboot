@@ -1,4 +1,4 @@
-package com.multi.quizwiki.dao;
+package com.multi.quizwiki.pboard.dao;
 
 import java.util.List;
 
@@ -7,12 +7,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import com.multi.quizwiki.entity.pboard.PboardCateEntity;
-import com.multi.quizwiki.entity.pboard.PboardEntity;
-import com.multi.quizwiki.entity.pboard.PboardReplyEntity;
-import com.multi.quizwiki.repository.PboardCateRepository;
-import com.multi.quizwiki.repository.PboardReplyRepository;
-import com.multi.quizwiki.repository.PboardRepository;
+import com.multi.quizwiki.pboard.entity.PboardCateEntity;
+import com.multi.quizwiki.pboard.entity.PboardEntity;
+import com.multi.quizwiki.pboard.entity.PboardReplyEntity;
+import com.multi.quizwiki.pboard.repository.PboardCateRepository;
+import com.multi.quizwiki.pboard.repository.PboardReplyRepository;
+import com.multi.quizwiki.pboard.repository.PboardRepository;
 
 import lombok.NoArgsConstructor;
 

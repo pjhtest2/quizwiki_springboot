@@ -1,4 +1,4 @@
-package com.multi.quizwiki.dto;
+package com.multi.quizwiki.pboard.dto;
 
 import java.sql.Timestamp;
 import java.util.List;

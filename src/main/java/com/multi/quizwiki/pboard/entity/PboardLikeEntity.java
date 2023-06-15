@@ -1,4 +1,6 @@
-package com.multi.quizwiki.entity.pboard;
+package com.multi.quizwiki.pboard.entity;
+
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,11 +16,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "pboard_cate")
-public class PboardCateEntity {
+@Table(name = "pboard_like")
+public class PboardLikeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	String pboardCateId;
-	String pboardCateName;
-	String pboardCateDesc;
+	String pboardLikeId;
+	String memberId;
+	int pboardId;
+	
+	public PboardLikeEntity(String memberId, int pboardId) {
+		super();
+		this.memberId = memberId;
+		this.pboardId = pboardId;
+	}
+	
+	
 }

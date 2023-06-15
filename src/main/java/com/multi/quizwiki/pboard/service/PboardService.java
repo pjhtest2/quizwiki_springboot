@@ -1,4 +1,4 @@
-package com.multi.quizwiki.service;
+package com.multi.quizwiki.pboard.service;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,12 +8,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.multi.quizwiki.entity.pboard.PboardCateEntity;
-import com.multi.quizwiki.entity.pboard.PboardEntity;
-import com.multi.quizwiki.entity.pboard.PboardReplyEntity;
-import com.multi.quizwiki.entity.problem.PrintFileEntity;
-import com.multi.quizwiki.entity.problem.ProblemCateEntity;
-import com.multi.quizwiki.entity.problem.ProblemEntity;
+import com.multi.quizwiki.pboard.entity.PboardCateEntity;
+import com.multi.quizwiki.pboard.entity.PboardEntity;
+import com.multi.quizwiki.pboard.entity.PboardReplyEntity;
+import com.multi.quizwiki.pboard.entity.PrintFileEntity;
+import com.multi.quizwiki.pboard.entity.ProblemCateEntity;
+import com.multi.quizwiki.pboard.entity.ProblemEntity;
 
 public interface PboardService {
 	

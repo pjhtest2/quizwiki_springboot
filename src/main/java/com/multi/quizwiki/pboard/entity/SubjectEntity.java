@@ -1,4 +1,4 @@
-package com.multi.quizwiki.entity.pboard;
+package com.multi.quizwiki.pboard.entity;
 
 import java.sql.Timestamp;
 
@@ -8,8 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.UpdateTimestamp;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,14 +16,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "pboard_reply")
-public class PboardReplyEntity {
+@Table(name="subject")
+public class SubjectEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	String pboardReplyId;
-	String memberId;
-	int pboardId;
-	String pboardReplyContent;
-	@UpdateTimestamp 
-	Timestamp pboardReplyEditDate;
+	String subjectId;
+	String subjectName;
+	String subjectDesc;
+	
+	public SubjectEntity(String subjectName , String subjectDesc) {
+		this.subjectName = subjectName;
+		this.subjectDesc = subjectDesc;
+	}
 }
+
+

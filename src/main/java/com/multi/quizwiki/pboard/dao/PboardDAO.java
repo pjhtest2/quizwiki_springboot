@@ -1,13 +1,13 @@
-package com.multi.quizwiki.dao;
+package com.multi.quizwiki.pboard.dao;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.multi.quizwiki.entity.pboard.PboardCateEntity;
-import com.multi.quizwiki.entity.pboard.PboardEntity;
-import com.multi.quizwiki.entity.pboard.PboardReplyEntity;
+import com.multi.quizwiki.pboard.entity.PboardCateEntity;
+import com.multi.quizwiki.pboard.entity.PboardEntity;
+import com.multi.quizwiki.pboard.entity.PboardReplyEntity;
 
 public interface PboardDAO {
 	public void insert(PboardEntity pboard);

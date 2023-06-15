@@ -1,4 +1,4 @@
-package com.multi.quizwiki.entity.problem;
+package com.multi.quizwiki.pboard.entity;
 
 import java.util.ArrayList;
 import java.util.List;

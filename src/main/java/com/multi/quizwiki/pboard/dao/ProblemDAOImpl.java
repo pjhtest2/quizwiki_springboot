@@ -1,4 +1,4 @@
-package com.multi.quizwiki.dao;
+package com.multi.quizwiki.pboard.dao;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,14 +8,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.multi.quizwiki.common.FileUploadLogicService;
-import com.multi.quizwiki.entity.problem.PrintFileEntity;
-import com.multi.quizwiki.entity.problem.ProblemCateEntity;
-import com.multi.quizwiki.entity.problem.ProblemChoiseEntity;
-import com.multi.quizwiki.entity.problem.ProblemEntity;
-import com.multi.quizwiki.repository.PrintFileRepository;
-import com.multi.quizwiki.repository.ProblemCateRepository;
-import com.multi.quizwiki.repository.ProblemChoiseRepository;
-import com.multi.quizwiki.repository.ProblemRepository;
+import com.multi.quizwiki.pboard.entity.PrintFileEntity;
+import com.multi.quizwiki.pboard.entity.ProblemCateEntity;
+import com.multi.quizwiki.pboard.entity.ProblemChoiseEntity;
+import com.multi.quizwiki.pboard.entity.ProblemEntity;
+import com.multi.quizwiki.pboard.repository.PrintFileRepository;
+import com.multi.quizwiki.pboard.repository.ProblemCateRepository;
+import com.multi.quizwiki.pboard.repository.ProblemChoiseRepository;
+import com.multi.quizwiki.pboard.repository.ProblemRepository;
 
 import lombok.NoArgsConstructor;
 

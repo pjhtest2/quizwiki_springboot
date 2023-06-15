@@ -33,11 +33,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.multi.quizwiki.common.FileUploadLogicService;
-import com.multi.quizwiki.entity.pboard.PboardEntity;
-import com.multi.quizwiki.entity.pboard.PboardReplyEntity;
-import com.multi.quizwiki.entity.problem.PrintFileEntity;
-import com.multi.quizwiki.entity.problem.ProblemEntity;
-import com.multi.quizwiki.service.PboardService;
+import com.multi.quizwiki.pboard.entity.PboardEntity;
+import com.multi.quizwiki.pboard.entity.PboardReplyEntity;
+import com.multi.quizwiki.pboard.entity.PrintFileEntity;
+import com.multi.quizwiki.pboard.entity.ProblemEntity;
+import com.multi.quizwiki.pboard.service.PboardService;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

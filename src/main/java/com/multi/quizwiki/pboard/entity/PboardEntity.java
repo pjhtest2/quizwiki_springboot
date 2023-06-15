@@ -1,4 +1,4 @@
-package com.multi.quizwiki.entity.pboard;
+package com.multi.quizwiki.pboard.entity;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -15,8 +15,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import com.multi.quizwiki.entity.problem.ProblemEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
