@@ -25,16 +25,7 @@ public class PboardReplyEntity {
 	String pboardReplyId;
 	String memberId;
 	int pboardId;
-	String content;
+	String pboardReplyContent;
 	@UpdateTimestamp 
-	Timestamp editDate;
-	
-	
-	public PboardReplyEntity(String memberId, int pboardId, String content) {
-		this.memberId = memberId;
-		this.pboardId = pboardId;
-		this.content = content;
-	}
-	
-	
+	Timestamp pboardReplyEditDate;
 }

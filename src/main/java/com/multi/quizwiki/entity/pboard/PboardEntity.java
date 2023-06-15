@@ -1,15 +1,22 @@
 package com.multi.quizwiki.entity.pboard;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.multi.quizwiki.entity.problem.ProblemEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,26 +30,24 @@ import lombok.NoArgsConstructor;
 public class PboardEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	String pboard_id;
-	String memberId;
-	int pboardCate;
-	String title;
-	String content;
+	String pboardId;
+	String MemberId;
+	int pboardCateId;
+	String pboardTitle;
+	String pboardContent;
 	@CreationTimestamp
-	Timestamp regDate;
+	Timestamp pboardRegDate;
 	@UpdateTimestamp 
-	Timestamp editDate;
-	int showCount;
-	int likeCount;
-	String status;
+	Timestamp pboardEditDate;
+	int pboardShowCount;
+	int pboardLikeCount;
+	String pboardStatus;
 	
-
-	public PboardEntity(String memberId, int pboardCate, String title, String content) {
-		this.memberId = memberId;
-		this.pboardCate = pboardCate;
-		this.title = title;
-		this.content = content;
-	}
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "pboardId")
+	private List<ProblemEntity> problemList = new ArrayList<>();
 	
-	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "pboardId")
+	private List<PboardReplyEntity> pboardReplyList = new ArrayList<>();
 }

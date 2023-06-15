@@ -1,11 +1,15 @@
 package com.multi.quizwiki.entity.problem;
 
-import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,32 +25,20 @@ public class ProblemEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	String problemId;
-	int problemCateId;
-	int pboardId;
-	String type;
-	String content;
-	int index;
-	String answer;
-	String print;
-	String desc;
+	String problemCateId;
+	String pboardId;
+	String problemType;
+	String problemContent;
+	int problemIndex;
+	String problemAnswer;
+	String problemPrint;
+	String problemDesc;
 	
-
-	public ProblemEntity(int problemCateId, int pboardId, String type, String content, int index, String answer,
-			String print, String desc) {
-		this.problemCateId = problemCateId;
-		this.pboardId = pboardId;
-		this.type = type;
-		this.content = content;
-		this.index = index;
-		this.answer = answer;
-		this.print = print;
-		this.desc = desc;
-	}
-
-	public ProblemEntity(String desc) {
-		this.desc = desc;
-	}
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "problemId")
+	private List<ProblemChoiseEntity> problemChoiseList = new ArrayList<>();
 	
-	
-	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "problemId")
+	private List<PrintFileEntity> problemFileList = new ArrayList<>();
 }

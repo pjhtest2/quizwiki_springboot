@@ -1,7 +1,5 @@
 package com.multi.quizwiki.entity.problem;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,15 +20,15 @@ public class ProblemCateEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	String problemCateId;
 	int subjectId;
-	String name;
-	String desc;
-	String grade;
+	String problemCateName;
+	String problemCateDesc;
+	String problemCateType;
 	
-	public ProblemCateEntity(int subjectId, String name, String desc, String grade) {
+	public ProblemCateEntity(int subjectId, String problemCateName, String problemCateDesc, String problemCateType) {
 		this.subjectId = subjectId;
-		this.name = name;
-		this.desc = desc;
-		this.grade = grade;
+		this.problemCateName = problemCateName;
+		this.problemCateDesc = problemCateDesc;
+		this.problemCateType = problemCateType;
 	}
 
 	

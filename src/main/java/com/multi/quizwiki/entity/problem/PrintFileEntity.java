@@ -21,15 +21,15 @@ public class PrintFileEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	String printFileId;
-	int problemId;
-	String origin;
-	String store;
+	String problemId;
+	String printfileOrigin;
+	String printfileStore;
 	
 	
-	public PrintFileEntity(int problemId, String origin, String store) {
+	public PrintFileEntity(String problemId, String printfileOrigin, String printfileStore) {
 		this.problemId = problemId;
-		this.origin = origin;
-		this.store = store;
+		this.printfileOrigin = printfileOrigin;
+		this.printfileStore = printfileStore;
 	}
 	
 	

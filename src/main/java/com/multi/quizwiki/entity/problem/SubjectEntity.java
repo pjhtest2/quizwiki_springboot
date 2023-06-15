@@ -21,11 +21,12 @@ public class SubjectEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	String subjectId;
-	String name;
-	String desc;
+	String subjectName;
+	String subjectDesc;
 	
-	public SubjectEntity(String name , String desc) {
-		
+	public SubjectEntity(String subjectName , String subjectDesc) {
+		this.subjectName = subjectName;
+		this.subjectDesc = subjectDesc;
 	}
 }
 

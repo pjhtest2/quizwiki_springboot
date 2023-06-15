@@ -25,15 +25,15 @@ public class SolvEntity {
 	String solvId;
 	int problemId;
 	String memberId;
-	String answer;
+	String solvAnswer;
 	@UpdateTimestamp 
-	Timestamp editDate;
+	Timestamp solvEditDate;
 	
 	
-	public SolvEntity(int problemId, String memberId, String answer) {
+	public SolvEntity(int problemId, String memberId, String solvAnswer) {
 		this.problemId = problemId;
 		this.memberId = memberId;
-		this.answer = answer;
+		this.solvAnswer = solvAnswer;
 	}
 	
 	

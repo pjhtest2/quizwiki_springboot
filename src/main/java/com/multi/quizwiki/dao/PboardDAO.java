@@ -1,11 +1,23 @@
 package com.multi.quizwiki.dao;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import com.multi.quizwiki.entity.pboard.PboardCateEntity;
 import com.multi.quizwiki.entity.pboard.PboardEntity;
-import com.multi.quizwiki.entity.problem.ProblemChoiseEntity;
-import com.multi.quizwiki.entity.problem.ProblemEntity;
+import com.multi.quizwiki.entity.pboard.PboardReplyEntity;
 
 public interface PboardDAO {
-	public void pboard_insert(PboardEntity pboard);
-	public void problem_insert(ProblemEntity problem);
-	public void problemChoise_insert(ProblemChoiseEntity problemChoise);
+	public void insert(PboardEntity pboard);
+	public void pboard_edit(PboardEntity pboard);
+	public void reply_insert(PboardReplyEntity pboardReply);
+	
+	public Page<PboardEntity> pboard_findByCate(int pboardCate,Pageable pageable);
+	public PboardEntity pboard_findByPboardId(String pboardId);
+	
+	public List<PboardCateEntity> pboardCate_findAll();
+	
+	
 }
