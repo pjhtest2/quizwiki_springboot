@@ -12,7 +12,7 @@
 <script type="text/javascript"
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<!-- js -->	
+<!-- js -->
 <script type="text/javascript" src="./js/member/zipcode.js"></script>
 <script type="text/javascript" src="./js/member/signup.js"></script>
 <script type="text/javascript" src="./js/member/check.js"></script>
@@ -24,7 +24,8 @@
 <!-- 글꼴 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
 	rel="stylesheet">
 
 <!-- CSS -->
@@ -36,6 +37,39 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+
+
+<script type="text/javascript">
+//아이디 찾기
+/* function findId_click() {
+	var name = $('#name').val()
+	var telnum = $('#telnum').val()
+
+	$.ajax({
+		url : "/findId",
+		type : "POST",
+		data : {
+			"name" : name,
+			"telnum" : telnum
+		},
+		success : function(data) {
+			if (data == 0) {
+				alert('회원정보를 확인해주세요');
+				$('#name').val('');
+				$('#telnum').val('');
+			} else {
+				alert('인증에 성공하였습니다');
+				$('#name').val('');
+				$('#telnum').val('');
+
+			}
+		},
+		error : function() {
+			alert("error");
+		}
+	});
+}; */
+</script>
 
 </head>
 
@@ -54,16 +88,16 @@
 				<form class="validation-form" novalidate>
 					<div class="row">
 						<div class="col-md-11 mb-3">
-							<label for="name">이름</label> <input type="text" 
+							<label for="name">이름</label> <input type="text"
 								class="form-control" id="name" placeholder="" value="" required>
 							<div class="invalid-feedback">이름을 입력해주세요.</div>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-md-8 mb-2">
-							<label for="member_id">아이디</label> <input type="text" name="member_id"
-								class="form-control" id="member_id" required>
+							<label for="member_id">아이디</label> <input type="text"
+								name="member_id" class="form-control" id="member_id" required>
 							<div class="invalid-feedback">아이디를 입력해주세요.</div>
 						</div>
 						<div class="col-md-1.5 mb-2 div_btn" id="div_zipcode_btn">
@@ -71,7 +105,7 @@
 								onclick="" value="id 중복 체크">
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-md-11 mb-3">
 							<label for="pass">비밀번호</label> <input type="password" name="pass"
@@ -81,44 +115,49 @@
 					</div>
 					<div class="row">
 						<div class="col-md-11 mb-3">
-							<label for="pass_check">비밀번호 확인</label> <input type="password" name="pass_check"
-								class="form-control" id="pass_check" placeholder="" value="" required>
-							<div class="invalid-feedback">비밀번호를 다시입력해주세요.</div>
+							<label for="pass_check">비밀번호 확인</label> <input type="password"
+								name="pass_check" class="form-control" id="pass_check"
+								placeholder="" value="" required>
+							<div id="pass_check_msg"></div>
+							<!-- <div class="invalid-feedback">비밀번호를 다시입력해주세요.</div> -->
 						</div>
 
 					</div>
 
 					<div class="row">
 						<div class="col-md-11 mb-3">
-							<label for="gender">성별</label> 
-							<select class="custom-select d-block w-100" id="gender" required>
+							<label for="gender">성별</label> <select
+								class="custom-select d-block w-100" id="gender" required>
 								<option value=""></option>
 								<option>남자</option>
 								<option>여자</option>
-								<option>밝히고 싶지 않음</opton>
+								<option>밝히고 싶지 않음
+									</opton>
 							</select>
 							<div class="invalid-feedback">성별을 선택해주세요.</div>
 						</div>
 					</div>
-					
+
 					<!-- 학교정보 받아올 수 있게 되면 추가하기.. -->
-					
+
 					<div class="row">
 						<div class="col-md-11 mb-3">
-							<label for="grade">학년</label> 
-							<select class="custom-select d-block w-100" id="grade" required>
+							<label for="grade">학년</label> <select
+								class="custom-select d-block w-100" id="grade" required>
 								<option value=""></option>
 								<option>1학년</option>
 								<option>2학년</option>
-								<option>3학년</opton>
-								<option>4학년</opton>
+								<option>3학년
+									</opton>
+								<option>4학년
+									</opton>
 							</select>
 							<div class="invalid-feedback">학년을 선택해주세요.</div>
 						</div>
 					</div>
-					
+
 					<!-- 학과 정보 받아올 수 있게 되면 추가하기.. -->
-					
+
 					<!-- <div class="row">
 						<div class="col-md-11 mb-3">
 							<label for="major">전공</label> 
@@ -131,7 +170,7 @@
 							<div class="invalid-feedback">과를 선택해주세요.</div>
 						</div>
 					</div> -->
-					
+
 					<div class="row">
 						<div class="col-md-8 mb-2">
 							<label for="email">이메일</label> <input type="email"
@@ -140,8 +179,8 @@
 							<div class="invalid-feedback">이메일을 입력해주세요.</div>
 						</div>
 						<div class="col-md-1.5 mb-2 div_btn" id="">
-							<input type="button" id="" class="code_num_btn"
-								onclick="" value="인증번호 발송">
+							<input type="button" id="" class="code_num_btn" onclick=""
+								value="인증번호 발송">
 						</div>
 					</div>
 					<div class="row">
@@ -152,8 +191,8 @@
 							<div class="invalid-feedback">인증번호를 확인해주세요.</div>
 						</div>
 						<div class="col-md-1.5 mb-2 div_btn" id="">
-							<input type="button" id="" class="code_num_btn"
-								onclick="" value="인증번호 확인">
+							<input type="button" id="" class="code_num_btn" onclick=""
+								value="인증번호 확인">
 						</div>
 					</div>
 
@@ -227,7 +266,7 @@
 					</div>
 
 					<hr class="mb-4">
- 
+
 					<div class="col-md-6 mb-3">
 						<div class="custom-control custom-checkbox">
 							<input type="checkbox" class="custom-control-input"
@@ -254,8 +293,8 @@
 						</div>
 					</div>
 					<div class="mb-4"></div>
-					<button class="btn btn-primary btn-lg btn-block" type="button" onclick="passcheck_signup()">가입
-						완료</button>
+					<button class="btn btn-primary btn-lg btn-block" type="button"
+						onclick="passcheck_signup()">가입 완료</button>
 				</form>
 			</div>
 		</div>

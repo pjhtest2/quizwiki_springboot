@@ -11,16 +11,19 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "pboard")
 public class PboardEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	String pboard_id;
 	String memberId;
 	int pboardCate;
 	String title;

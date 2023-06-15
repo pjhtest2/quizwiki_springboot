@@ -10,17 +10,19 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "pboard_reply")
 public class PboardReplyEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int pboardReplyId;
+	String pboardReplyId;
 	String memberId;
 	int pboardId;
 	String content;
