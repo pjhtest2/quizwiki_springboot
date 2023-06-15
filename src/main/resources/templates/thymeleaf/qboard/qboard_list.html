@@ -109,7 +109,7 @@ layout:fragment="content"><head>
 				<div id="content_body">
 				<ul class="question-list">
   <li class="question-container" th:each="qboard :${qboardlist}">
-    <a class="e-click-post" href="../qboard/read.do">
+    <a class="e-click-post" th:href="@{/quizwiki/qboard/read.do(qboard_id=${qboard.qboard_id})}">
       
     <div class="question">
       <div class="question__info">
