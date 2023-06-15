@@ -1,8 +1,8 @@
-package com.multi.quizwiki.dao;
+package com.multi.quizwiki.qboard.dao;
 
 import java.util.List;
 
-import com.multi.quizwiki.dto.QboardDTO;
+import com.multi.quizwiki.qboard.dto.QboardDTO;
 public interface QboardDAO {
 	public int insert(QboardDTO qboard);
 	
@@ -10,6 +10,6 @@ public interface QboardDAO {
 	 public List<QboardDTO> getBoardList();
 	 
 	
-	 public QboardDTO getQboardDetail(int qboard_id);
+	 public QboardDTO getQboardDetail(Long qboard_id);
 	 
 }

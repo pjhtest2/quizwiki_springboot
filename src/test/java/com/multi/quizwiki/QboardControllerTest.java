@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.multi.quizwiki.dto.QboardDTO;
-import com.multi.quizwiki.service.QboardService;
+import com.multi.quizwiki.qboard.dto.QboardDTO;
+import com.multi.quizwiki.qboard.service.QboardService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,6 @@ public class QboardControllerTest {
 		QboardDTO dto = new QboardDTO();
 		dto.setContent("content");
 		dto.setTitle("title");
-		dto.setQboard_id(1);
 	}
 	
 	void testdb() {

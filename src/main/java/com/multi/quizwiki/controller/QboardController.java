@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.multi.quizwiki.dto.QboardDTO;
-import com.multi.quizwiki.service.QboardService;
+import com.multi.quizwiki.qboard.dto.QboardDTO;
+import com.multi.quizwiki.qboard.service.QboardService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,10 +53,23 @@ public class QboardController {
 	}
 	
 	
-	  @GetMapping("/qboard/list.do") public String QboardList(Model model) {
-	  List<QboardDTO> qboardList = qboardservice.getBoardList();
-	  model.addAttribute("qboardlist",qboardList); 
-	  return "qboard/qboard_list"; }
-	 	
+	  @GetMapping("/qboard/list.do") 
+	  public String QboardList(Model model) {
+		  log.info("list.do 실행");
+		  List<QboardDTO> qboardList = qboardservice.getBoardList();
+		  model.addAttribute("qboardlist",qboardList); 
+	  		
+	  	return "thymeleaf/qboard/qboard_list"; 
+	  
+	  }
+	 @GetMapping("/qboard/read.do")
+	 public String QboardDetail(@RequestParam(value="qboard_id",required = false) Long qboard_id, Model model ) {
+			/*
+			 * if (qboard_id == null) { return "redirect:/qboard/list"; }
+			 */
+		 QboardDTO qboard = qboardservice.getQboardDetail(qboard_id);
+		 model.addAttribute("qboard",qboard);
+		return "thymeleaf/qboard/qboard_read";
+	 }
 	
 	  }

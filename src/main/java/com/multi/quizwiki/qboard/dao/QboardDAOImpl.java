@@ -1,4 +1,4 @@
-package com.multi.quizwiki.dao;
+package com.multi.quizwiki.qboard.dao;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.multi.quizwiki.dto.QboardDTO;
+import com.multi.quizwiki.qboard.dto.QboardDTO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,11 +27,11 @@ public class QboardDAOImpl implements QboardDAO {
 
 	@Override
 	public List<QboardDTO> getBoardList() {
-		return template.selectList("com.multi.quizwiki.qboard.selectAll");
+		return template.selectList("com.multi.quizwiki.qboard.selectqboardlist");
 	}
 
 	@Override
-	public QboardDTO getQboardDetail(int qboard_id) {
+	public QboardDTO getQboardDetail(Long qboard_id) {
 		return template.selectOne("com.multi.quizwiki.qboard.selectBoardDetail", qboard_id);
 	}
 
