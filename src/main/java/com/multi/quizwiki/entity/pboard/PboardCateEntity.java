@@ -1,7 +1,5 @@
 package com.multi.quizwiki.entity.pboard;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +19,6 @@ public class PboardCateEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	String pboardCateId;
-	String name;
-	String desc;
+	String pboardCateName;
+	String pboardCateDesc;
 }

@@ -21,14 +21,14 @@ public class ProblemChoiseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	String problemChoiseId;
-	int problemId;
-	String index;
-	String content;
+	String problemId;
+	String problemChoiseIndex;
+	String problemChoiseContent;
 	
-	public ProblemChoiseEntity(int problemId, String index, String content) {
+	public ProblemChoiseEntity(String problemId, String problemChoiseIndex, String problemChoiseContent) {
 		this.problemId = problemId;
-		this.index = index;
-		this.content = content;
+		this.problemChoiseIndex = problemChoiseIndex;
+		this.problemChoiseContent = problemChoiseContent;
 	}
 	
 	
