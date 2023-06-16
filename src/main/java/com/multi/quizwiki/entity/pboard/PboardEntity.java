@@ -20,6 +20,7 @@ import com.multi.quizwiki.entity.problem.ProblemEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
