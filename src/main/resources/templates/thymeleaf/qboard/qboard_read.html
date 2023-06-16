@@ -12,16 +12,16 @@ layout:fragment="content"><head>
 </head>
 <body>
 <section class="content" >
-		<form th:object="${qboard}">
+		<form>
 		<div class="question-detail_header">
 			<div class="question-detail_title">
-				<h1 th:text="*{title}"> </h1>
+				<h1 th:text="${qboard.title}"> </h1>
 			</div>
 		</div>
 		<div class="header_sub-title flex-row">
 			<img class="comment_user-profile" alt="" src="" />
 			<div class="flex-column">
-			<h6 class=user-name th:text="*{member_id}">
+			<h6 class="user-name" th:text="${qboard.member_id}">
 				<a>shj</a>
 			</h6>
 			<div class="header__sub-title__content">
@@ -29,16 +29,16 @@ layout:fragment="content"><head>
 
 				<div class="content-date">
 					<span class="sub-title sub-title__created-at"> <span
-						class="sub-title__title">작성일</span> <span class="sub-title__value" th:text="*{regdate}">23.05.29</span>
+						class="sub-title__title">작성일</span> <span class="sub-title__value" th:text="${qboard.regdate}">23.05.29</span>
 					</span> <span class="sub-title sub-title__view-count"> <span
-						class="sub-title__title">조회수</span> <span class="sub-title__value" th:text="*{viewCount}">42</span>
+						class="sub-title__title">조회수</span> <span class="sub-title__value" th:text="${qboard.view_Count}">42</span>
 					</span>
 				</div>
 			</div>
 			</div>
 		</div>
 		<div class="post-content">
-			<div class="content_body" th:text="*{content}">
+			<div class="content_body" th:text="${qboard.content}">
 				<p>질문: "다음 문장 중에서 문법적으로 옳지 않은 것은 무엇인가요?" a) She is studying for
 					her exams at the library. b) I have saw that movie three times
 					already. c) They are going to the beach tomorrow. d) The dog was
@@ -53,7 +53,7 @@ layout:fragment="content"><head>
 		<div class="section_content">
 			<div class="answer-info_header">
 				<div class="answer-info_title">
-					댓글 <span class="answer-info_title--count">1</span>
+					댓글 <span class="answer-info_title--count" th:text="${qboard.comment_Count}">1</span>
 				</div>
 			</div>
 
