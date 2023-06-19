@@ -22,18 +22,20 @@ import lombok.NoArgsConstructor;
 public class SolvEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	String solvId;
+	int solvId;
 	int problemId;
 	String memberId;
 	String solvAnswer;
 	@UpdateTimestamp 
 	Timestamp solvEditDate;
+	boolean solvRight;
 	
 	
-	public SolvEntity(int problemId, String memberId, String solvAnswer) {
+	public SolvEntity(int problemId, String memberId, String solvAnswer, boolean solvRight) {
 		this.problemId = problemId;
 		this.memberId = memberId;
 		this.solvAnswer = solvAnswer;
+		this.solvRight = solvRight;
 	}
 	
 	

@@ -12,10 +12,14 @@ import com.multi.quizwiki.pboard.entity.PrintFileEntity;
 import com.multi.quizwiki.pboard.entity.ProblemCateEntity;
 import com.multi.quizwiki.pboard.entity.ProblemChoiseEntity;
 import com.multi.quizwiki.pboard.entity.ProblemEntity;
+import com.multi.quizwiki.pboard.entity.ProblemLikeEntity;
+import com.multi.quizwiki.pboard.entity.SolvEntity;
 import com.multi.quizwiki.pboard.repository.PrintFileRepository;
 import com.multi.quizwiki.pboard.repository.ProblemCateRepository;
 import com.multi.quizwiki.pboard.repository.ProblemChoiseRepository;
+import com.multi.quizwiki.pboard.repository.ProblemLikeRepository;
 import com.multi.quizwiki.pboard.repository.ProblemRepository;
+import com.multi.quizwiki.pboard.repository.SolvRepository;
 
 import lombok.NoArgsConstructor;
 
@@ -27,6 +31,8 @@ public class ProblemDAOImpl implements ProblemDAO {
 	ProblemCateRepository problemCateRepo;
 	ProblemChoiseRepository problemChoiseRepo;
 	PrintFileRepository printFileRepo;
+	ProblemLikeRepository problemLikeRepo;
+	SolvRepository solvRepo;
 	FileUploadLogicService fileUpload;
 	
 	@Autowired
@@ -35,12 +41,17 @@ public class ProblemDAOImpl implements ProblemDAO {
 			ProblemChoiseRepository problemChoiseRepo, 
 			ProblemCateRepository problemCateRepo,
 			PrintFileRepository printFileRepo,
-			FileUploadLogicService fileUpload) {
+			FileUploadLogicService fileUpload,
+			ProblemLikeRepository problemLikeRepo,
+			SolvRepository solvRepo) {
+		
 		this.problemRepo = problemRepo;
 		this.problemChoiseRepo = problemChoiseRepo;
 		this.problemCateRepo = problemCateRepo;
 		this.printFileRepo = printFileRepo;
 		this.fileUpload = fileUpload;
+		this.problemLikeRepo = problemLikeRepo;
+		this.solvRepo = solvRepo;
 	}
 	
 	@Override
@@ -54,7 +65,7 @@ public class ProblemDAOImpl implements ProblemDAO {
 	}
 
 	@Override
-	public void printfile_insert(MultipartFile file, String problemId) throws IllegalStateException, IOException {
+	public void printfile_insert(MultipartFile file, int problemId) throws IllegalStateException, IOException {
 		String store = fileUpload.uploadFile(file);
 		PrintFileEntity pf = new PrintFileEntity(problemId, file.getOriginalFilename(), store);
 		printFileRepo.save(pf);
@@ -66,26 +77,55 @@ public class ProblemDAOImpl implements ProblemDAO {
 	}
 
 	@Override
-	public List<ProblemEntity> probleme_findByPboardId(String pboardId) {
+	public List<ProblemEntity> probleme_findByPboardId(int pboardId) {
 		return problemRepo.findAllByPboardId(pboardId);
 	}
 
 	@Override
-	public PrintFileEntity printfile_findByPboardId(String problemId) {
+	public PrintFileEntity printfile_findByPboardId(int problemId) {
 		return printFileRepo.findByProblemId(problemId);
 	}
 
 	@Override
-	public void problem_delete(String problemId) {
+	public void problem_delete(int problemId) {
 		printFileRepo.deleteAllByProblemId(problemId);
 		problemChoiseRepo.deleteAllByProblemId(problemId);
-		problemRepo.deleteById(problemId);
+		problemRepo.flush();
+		ProblemEntity p = problemRepo.findById(problemId).get();
+		problemRepo.delete(p);
+	}
+	
+	@Override
+	public void problem_editStatusByPboardId(int pboardId) {
+		List<ProblemEntity> problem = problemRepo.findAllByPboardIdAndProblemStatusNot(pboardId,"p");
+		problem.forEach((p)->{
+			p.setProblemStatus("p");
+		});
 	}
 
 	@Override
-	public List<ProblemEntity> problem_findAllByPboardId(String pboardId) {
+	public List<ProblemEntity> problem_findAllByPboardId(int pboardId) {
 		return problemRepo.findAllByPboardId(pboardId);
 	}
 
+	@Override
+	public ProblemLikeEntity problemlike_findByMemberIdAndProblemId(String memberId, int problemId) {
+		return problemLikeRepo.findByMemberIdAndProblemId(memberId, problemId);
+	}
+
+	@Override
+	public ProblemLikeEntity problemlike_insert(ProblemLikeEntity problemlike) {
+		return problemLikeRepo.save(problemlike);
+	}
+
+	@Override
+	public SolvEntity solv_insert(SolvEntity solv) {
+		return solvRepo.save(solv);
+	}
+
+	@Override
+	public List<SolvEntity> solv_insertAll(List<SolvEntity> solvList) {
+		return solvRepo.saveAll(solvList);
+	}
 
 }

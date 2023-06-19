@@ -42,7 +42,6 @@ public class PboardDAOImpl implements PboardDAO{
 	
 	@Override
 	public void pboard_edit(PboardEntity pboard) {
-		System.out.println(pboard.getPboardId());
 		PboardEntity data =  pboardRepo.findById(pboard.getPboardId()).get();
 		data.setPboardContent(pboard.getPboardContent());
 		data.setPboardTitle(pboard.getPboardTitle());
@@ -58,12 +57,22 @@ public class PboardDAOImpl implements PboardDAO{
 	public Page<PboardEntity> pboard_findByCate(int pboardCateId, Pageable pageable) {
 		return pboardRepo.findByPboardCateIdAndPboardStatusNot(pboardCateId,"d", pageable);
 	}
+	@Override
+	public Page<PboardEntity> pboard_findByCateTitleContaining(int pboardCateId, String keyword, Pageable pageable) {
+		return pboardRepo.findByPboardCateIdAndPboardStatusNotAndPboardTitleContaining(pboardCateId,"d",keyword, pageable);
+	}
+
+
+	@Override
+	public Page<PboardEntity> pboard_findByCateMemberIdContaining(int pboardCateId, String keyword, Pageable pageable) {
+		return pboardRepo.findByPboardCateIdAndPboardStatusNotAndMemberIdContaining(pboardCateId,"d",keyword, pageable);
+	}
 
 
 
 
 	@Override
-	public PboardEntity pboard_findByPboardId(String pboardId) {
+	public PboardEntity pboard_findByPboardId(int pboardId) {
 		return pboardRepo.findById(pboardId).get();
 	}
 
@@ -74,5 +83,10 @@ public class PboardDAOImpl implements PboardDAO{
 	public void reply_insert(PboardReplyEntity pboardReply) {
 		pboardReplyRepo.save(pboardReply);
 	}
+
+
+
+
+
 
 }

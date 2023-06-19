@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class PboardReplyEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	String pboardReplyId;
+	int pboardReplyId;
 	String memberId;
 	int pboardId;
 	String pboardReplyContent;

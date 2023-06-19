@@ -1,7 +1,5 @@
 package com.multi.quizwiki.pboard.entity;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class ProblemCateEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	String problemCateId;
+	int problemCateId;
 	int subjectId;
 	String problemCateName;
 	String problemCateDesc;

@@ -7,8 +7,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.multi.quizwiki.pboard.entity.PboardEntity;
 
-public interface PboardRepository extends JpaRepository<PboardEntity, String>{
+public interface PboardRepository extends JpaRepository<PboardEntity, Integer>{
 	public Page<PboardEntity> findByPboardCateIdAndPboardStatusNot(int pboardCateId,String pboardStatus, Pageable pageable);
+	
+	public Page<PboardEntity> 
+	findByPboardCateIdAndPboardStatusNotAndPboardTitleContaining
+	(int pboardCateId,String pboardStatus,String pboardTitle, Pageable pageable);
+	
+	public Page<PboardEntity> 
+	findByPboardCateIdAndPboardStatusNotAndMemberIdContaining
+	(int pboardCateId,String pboardStatus,String memberId, Pageable pageable);
 	
 
 }

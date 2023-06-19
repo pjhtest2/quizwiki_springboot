@@ -1,7 +1,5 @@
 package com.multi.quizwiki.pboard.entity;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,13 +18,13 @@ import lombok.NoArgsConstructor;
 public class PrintFileEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	String printFileId;
-	String problemId;
+	int printFileId;
+	int problemId;
 	String printfileOrigin;
 	String printfileStore;
 	
 	
-	public PrintFileEntity(String problemId, String printfileOrigin, String printfileStore) {
+	public PrintFileEntity(int problemId, String printfileOrigin, String printfileStore) {
 		this.problemId = problemId;
 		this.printfileOrigin = printfileOrigin;
 		this.printfileStore = printfileStore;

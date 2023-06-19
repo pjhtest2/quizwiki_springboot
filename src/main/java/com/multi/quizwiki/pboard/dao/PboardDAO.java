@@ -14,8 +14,10 @@ public interface PboardDAO {
 	public void pboard_edit(PboardEntity pboard);
 	public void reply_insert(PboardReplyEntity pboardReply);
 	
-	public Page<PboardEntity> pboard_findByCate(int pboardCate,Pageable pageable);
-	public PboardEntity pboard_findByPboardId(String pboardId);
+	public Page<PboardEntity> pboard_findByCate(int pboardCateId,Pageable pageable);
+	public Page<PboardEntity> pboard_findByCateTitleContaining(int pboardCateId,String keyword,Pageable pageable);
+	public Page<PboardEntity> pboard_findByCateMemberIdContaining(int pboardCateId, String keyword,Pageable pageable);
+	public PboardEntity pboard_findByPboardId(int pboardId);
 	
 	public List<PboardCateEntity> pboardCate_findAll();
 	

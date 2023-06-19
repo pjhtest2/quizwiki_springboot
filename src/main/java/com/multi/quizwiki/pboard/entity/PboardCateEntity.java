@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class PboardCateEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	String pboardCateId;
+	int pboardCateId;
 	String pboardCateName;
 	String pboardCateDesc;
 }

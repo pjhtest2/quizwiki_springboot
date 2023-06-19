@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.multi.quizwiki.pboard.entity.PboardReplyEntity;
 
-public interface PboardReplyRepository extends JpaRepository<PboardReplyEntity, String>{
-	public Page<PboardReplyEntity> findByPboardId(String pboardId, Pageable pageable);
+public interface PboardReplyRepository extends JpaRepository<PboardReplyEntity, Integer>{
+	public Page<PboardReplyEntity> findByPboardId(int pboardId, Pageable pageable);
 }

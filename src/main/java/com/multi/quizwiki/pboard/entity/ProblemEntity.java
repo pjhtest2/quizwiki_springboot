@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Where;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,15 +26,16 @@ import lombok.NoArgsConstructor;
 public class ProblemEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	String problemId;
-	String problemCateId;
-	String pboardId;
+	int problemId;
+	int problemCateId;
+	int pboardId;
 	String problemType;
 	String problemContent;
 	int problemIndex;
 	String problemAnswer;
 	String problemPrint;
 	String problemDesc;
+	String problemStatus;
 	
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "problemId")

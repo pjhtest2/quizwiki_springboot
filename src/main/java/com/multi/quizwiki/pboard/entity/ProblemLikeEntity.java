@@ -14,20 +14,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "problem_choise")
-public class ProblemChoiseEntity {
+@Table(name="problem_like")
+public class ProblemLikeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int problemChoiseId;
+	int problemLikeId;
 	int problemId;
-	String problemChoiseIndex;
-	String problemChoiseContent;
+	String memberId;
 	
-	public ProblemChoiseEntity(int problemId, String problemChoiseIndex, String problemChoiseContent) {
+	public ProblemLikeEntity(int problemId , String memberId) {
 		this.problemId = problemId;
-		this.problemChoiseIndex = problemChoiseIndex;
-		this.problemChoiseContent = problemChoiseContent;
+		this.memberId = memberId;
 	}
-	
-	
 }

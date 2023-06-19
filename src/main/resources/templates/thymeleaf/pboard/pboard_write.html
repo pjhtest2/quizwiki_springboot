@@ -127,7 +127,7 @@
 					<div class="pmaker_item">
 						<h4>지문:</h4>
 						<div class="popup-input-wrap">
-							<textarea maxlength="3000" name="print" rows="3" class="custom-input"></textarea>
+							<textarea wrap="hard" maxlength="3000" name="print" rows="3" class="custom-input"></textarea>
 							<p class="input-label"><span class="input-label-count">0</span>/3000</p>
 						</div>
 					</div>
@@ -199,8 +199,8 @@
 						
 						<div class="problem_print">
 							<div id="preprintfile" class="preview-printfile"></div>
-							<p id="preprint">
-                            </p>
+							<pre id="preprint">
+                            </pre>
 						</div>
 
 						<ul id="pre-answer-list" class="problem_answer_list mp-items">
@@ -447,6 +447,7 @@ plistAddBtn.addEventListener("click", ()=>{
 /* plist-add-btn end. */
 
 /* add-popup-close (문제 추가 팝업 닫기 버튼)*/
+
 let addPopupCloseBtn = document.getElementById("add-popup-close");
 addPopupCloseBtn.addEventListener("click", ()=>{
 	Swal.fire({
@@ -567,7 +568,7 @@ async function convertURLtoFile(url,filename){
 async function onStateEdit() {
 	$.ajax({
 	    type: "post",
-	    url: '/pboard/find',
+	    url: '/get/pboard',
 	    data: { no: new URLSearchParams(window.location.search).get('no') },
 	    success: async (res) => {
 	    editList = res;
@@ -575,11 +576,8 @@ async function onStateEdit() {
 	    editorform.se2.innerHTML = editList.pboardContent;
         
 	    problems = await Promise.all(editList.problemList.map(async (e) => {
-	        let choise = await Promise.all(e.problemChoiseList.map(async (c) => {
-	          return [
-	            c.problemChoiseContent
-	          ];
-        }));
+	        let choise = await Promise.all(e.problemChoiseList.map(async (c) => c.problemChoiseContent
+        ));
 		
         let printfile = null;
 	    if(e.problemFileList.length>0){
@@ -722,7 +720,7 @@ function showPrintFile(src){
 		window.open(this.src);
 	}); */
 	prePrintFile.appendChild(image);
-	prePrintFile.style.display = "block";
+	prePrintFile.style.display = "flex";
 }
 
 //============add form 리셋=============================
