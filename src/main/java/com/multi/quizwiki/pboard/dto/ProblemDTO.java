@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Alias("problem")
+//@Alias("problem")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
