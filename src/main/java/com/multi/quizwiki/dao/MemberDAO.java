@@ -10,7 +10,8 @@ public interface MemberDAO {
 	// 아이디 중복 체크
 	int idCheck(MemberDTO member_id) throws Exception;
 	
-	// 비밀번호 체크
+	// 회원가입
+	void register(MemberDTO user) throws Exception;
 	
 	
 	
