@@ -2,42 +2,62 @@ package com.multi.quizwiki.controller;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Random;
 
+import javax.mail.Authenticator;
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.multi.quizwiki.dto.EmailRequestDTO;
 import com.multi.quizwiki.dto.MemberDTO;
+import com.multi.quizwiki.service.EmailService;
 import com.multi.quizwiki.service.MemberService;
 import com.univcert.api.UnivCert;
 
 @Controller
+@SessionAttributes("user")
 public class MemberController {
 
-	@Autowired
+	
 	MemberService service;
+	
+	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
 	public MemberController() {
 
 	}
+	
+	@Autowired
+	public MemberController(MemberService service) {
+		super();
+		this.service = service;
+	}
+
+	
 
 	// 로그인
-	@GetMapping("/login.do") 
-	public String show_login() { 
-		return "thymeleaf/member/login"; 
+	@GetMapping("/login.do")
+	public String show_login() {
+		return "thymeleaf/member/login";
 	}
-	 
 
 	// 로그인 -> 아이디 찾기
 	@RequestMapping("/findId.do")
@@ -93,58 +113,55 @@ public class MemberController {
 		return "thymeleaf/member/signup2";
 	}
 
-	
 	// 로그인
-	@PostMapping("/login.do") 
-	public ModelAndView login(MemberDTO loginUserInfo, HttpServletRequest request){ 
+	@PostMapping("/login.do")
+	public ModelAndView login(MemberDTO loginUserInfo, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		MemberDTO user = service.login(loginUserInfo);
-		String view="";
-		if(user!=null) {
+		String view = "";
+		if (user != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
 			view = "redirect:/main";
 		} else {
-			//System.out.println("등록되지 않은 사용자");
+			// System.out.println("등록되지 않은 사용자");
 			view = "redirect:/login.do";
 		}
 		mav.setViewName(view);
-		return mav; 
+		return mav;
 	}
-	
+
 	// 로그아웃
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
-		if(session!=null) {
-			 session.invalidate();
+		if (session != null) {
+			session.invalidate();
 		}
 		return "redirect:/main";
 	}
-	
-	
+
 	// 아이디 중복 확인
-	@RequestMapping(value="/idChk", method = RequestMethod.POST)
+	@RequestMapping(value = "/idChk", method = RequestMethod.POST)
 	@ResponseBody
-	public int idCheck(MemberDTO member_id) throws Exception{
+	public int idCheck(MemberDTO member_id) throws Exception {
 		int result = service.idCheck(member_id);
 		return result;
 	}
-	
+
 	// 회원가입
-//	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-//	public String signup(MemberDTO member_id) throws Exception{
-//		int result = service.idCheck(member_id);
-//		try {
-//			// 입력된 아이디가 존재한다면 회원가입 화면으로
-//			if(result == 1) {
-//				return "thymeleaf/member/signupType";
-//			}
-//			
-//		} catch (Exception e) {
-//			throw new RuntimeException();
-//		}
-//		return "redirect:/login.do";
-//	}
+	@RequestMapping(value = "/signup", method = RequestMethod.GET)
+	public void get_register() throws Exception {
+		logger.info("get signup");
+	}
+
+	// 회원가입
+	@RequestMapping(value = "/signup", method = RequestMethod.POST)
+	public String post_register(MemberDTO user) throws Exception {
+		logger.info("post signup");
+		service.register(user);
+		return "redirect:/login.do";
+	}
+
 	
 
 	// 대학교 메일 인증
@@ -162,10 +179,9 @@ public class MemberController {
 	 * }
 	 */
 
-	@RequestMapping(value = "/test", produces ="application/json;charset=utf-8 ") 
-	//@ResponseBody 
-	public String test(String email,String universityName)throws IOException
-	{
+	@RequestMapping(value = "/test", produces = "application/json;charset=utf-8 ")
+	// @ResponseBody
+	public String test(String email, String universityName) throws IOException {
 		System.out.println("============email===========");
 		UnivCert.certify("b7026b59-2d05-4165-be01-de304e8c76ae", email, universityName, true);
 		return "test";

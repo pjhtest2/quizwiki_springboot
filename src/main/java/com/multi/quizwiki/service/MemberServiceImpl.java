@@ -43,6 +43,31 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	// 회원가입
+	@Override
+	public void register(MemberDTO user) throws Exception {
+		
+		//System.out.println(user);
+		user.setMember_point(2000); // 회원가입 시 2000 포인트를 제공
+		
+		if (user.getMember_extra_addr() == "") { // 주소 참고항목란
+			user.setMember_extra_addr("참고항목 없음");
+		}
+		if (user.getMember_mkt_opt() == null) { // 마케팅 수신 옵션 아무것도 체크하지 않았을 떄
+			user.setMember_mkt_opt("마케팅 수신 미동의");
+		}
+		
+		if (user.getUniversityName() == null) { // 회원 타입 지정
+	        user.setMember_type("1"); // 고등학생
+	    } 
+		if (user.getUniversityName() != null) { // 회원 타입 지정
+	        user.setMember_type("2"); // 대학생
+	    }
+		System.out.println(user);
+		dao.register(user);
+		
+	}
+	
 	@Override
 	 public void certifiedPhoneNumber(String telnum, String numStr) {
 		 
@@ -56,7 +81,7 @@ public class MemberServiceImpl implements MemberService {
           params.put("from", "01079196032");   
           params.put("type", "SMS");
           params.put("text", "작성할내용 "+numStr);
-          params.put("app_version", "test app 1.2"); // application name and version
+          params.put("app_version", "test app 1.2"); // application name과 version
 
           try {
               JSONObject obj = (JSONObject) coolsms.send(params);

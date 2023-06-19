@@ -39,6 +39,13 @@ public class MemberDAOImpl implements MemberDAO {
 		return result;
 	}
 
+	// 회원가입
+	@Override
+	public void register(MemberDTO user) throws Exception {
+		sqlSession.insert("com.multi.quizwiki.member.insert", user);
+	}
+	
+	
 	@Override
 	public void certifiedPhone(String telnum) {
 		// TODO Auto-generated method stub
@@ -52,6 +59,7 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		
 	}
+
 	
 	
 	

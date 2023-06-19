@@ -28,9 +28,8 @@ public class MemberDTO {
 	private String member_jibun_addr; // 지번주소
 	private String member_detail_addr; // 상세주소
 	private String member_extra_addr; // 참고항목
-	private String member_mkt_opt; // 마케팅 수신 동의 여부 : Y/N으로 받으면 될 듯?
-	private String member_status; // 회원 탈퇴 여부
-	private Date member_regdate; // 가입날짜 date? String?
+	private String member_mkt_opt; // 마케팅 수신 동의 여부 
+	private Date member_regdate; // 가입날짜 
 	private int member_point; // 포인트
 	private String member_photo; // 플필 이미지
 	private String member_type; // 회원타입 - 1:청소년, 2:대학생
