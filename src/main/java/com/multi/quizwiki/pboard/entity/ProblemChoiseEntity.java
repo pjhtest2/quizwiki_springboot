@@ -1,14 +1,10 @@
-package com.multi.quizwiki.entity.problem;
-
-import java.sql.Timestamp;
+package com.multi.quizwiki.pboard.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,24 +14,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "solv")
-public class SolvEntity {
+@Table(name = "problem_choise")
+public class ProblemChoiseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	String solvId;
+	int problemChoiseId;
 	int problemId;
-	String memberId;
-	String solvAnswer;
-	@UpdateTimestamp 
-	Timestamp solvEditDate;
+	String problemChoiseIndex;
+	String problemChoiseContent;
 	
-	
-	public SolvEntity(int problemId, String memberId, String solvAnswer) {
+	public ProblemChoiseEntity(int problemId, String problemChoiseIndex, String problemChoiseContent) {
 		this.problemId = problemId;
-		this.memberId = memberId;
-		this.solvAnswer = solvAnswer;
+		this.problemChoiseIndex = problemChoiseIndex;
+		this.problemChoiseContent = problemChoiseContent;
 	}
-	
 	
 	
 }

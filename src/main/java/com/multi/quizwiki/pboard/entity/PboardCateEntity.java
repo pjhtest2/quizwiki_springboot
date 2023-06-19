@@ -1,4 +1,4 @@
-package com.multi.quizwiki.entity.pboard;
+package com.multi.quizwiki.pboard.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class PboardCateEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	String pboardCateId;
+	int pboardCateId;
 	String pboardCateName;
 	String pboardCateDesc;
 }

@@ -1,4 +1,4 @@
-package com.multi.quizwiki.entity.problem;
+package com.multi.quizwiki.pboard.entity;
 
 import java.sql.Timestamp;
 
@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,21 +18,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "print_file")
-public class PrintFileEntity {
+@Table(name = "pboard_reply")
+public class PboardReplyEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	String printFileId;
-	String problemId;
-	String printfileOrigin;
-	String printfileStore;
-	
-	
-	public PrintFileEntity(String problemId, String printfileOrigin, String printfileStore) {
-		this.problemId = problemId;
-		this.printfileOrigin = printfileOrigin;
-		this.printfileStore = printfileStore;
-	}
-	
-	
+	int pboardReplyId;
+	String memberId;
+	int pboardId;
+	String pboardReplyContent;
+	@UpdateTimestamp 
+	Timestamp pboardReplyEditDate;
 }

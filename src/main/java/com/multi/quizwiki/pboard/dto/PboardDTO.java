@@ -1,4 +1,4 @@
-package com.multi.quizwiki.dto;
+package com.multi.quizwiki.pboard.dto;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Alias("pboard")
+//@Alias("pboard")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

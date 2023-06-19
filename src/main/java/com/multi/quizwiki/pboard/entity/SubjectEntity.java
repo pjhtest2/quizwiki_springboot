@@ -1,6 +1,4 @@
-package com.multi.quizwiki.entity.problem;
-
-import java.sql.Timestamp;
+package com.multi.quizwiki.pboard.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class SubjectEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	String subjectId;
+	int subjectId;
 	String subjectName;
 	String subjectDesc;
 	

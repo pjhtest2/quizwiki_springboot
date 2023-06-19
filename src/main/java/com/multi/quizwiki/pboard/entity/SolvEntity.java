@@ -1,4 +1,4 @@
-package com.multi.quizwiki.entity.pboard;
+package com.multi.quizwiki.pboard.entity;
 
 import java.sql.Timestamp;
 
@@ -18,14 +18,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "pboard_reply")
-public class PboardReplyEntity {
+@Table(name = "solv")
+public class SolvEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	String pboardReplyId;
+	int solvId;
+	int problemId;
 	String memberId;
-	int pboardId;
-	String pboardReplyContent;
+	String solvAnswer;
 	@UpdateTimestamp 
-	Timestamp pboardReplyEditDate;
+	Timestamp solvEditDate;
+	boolean solvRight;
+	
+	
+	public SolvEntity(int problemId, String memberId, String solvAnswer, boolean solvRight) {
+		this.problemId = problemId;
+		this.memberId = memberId;
+		this.solvAnswer = solvAnswer;
+		this.solvRight = solvRight;
+	}
+	
+	
+	
 }

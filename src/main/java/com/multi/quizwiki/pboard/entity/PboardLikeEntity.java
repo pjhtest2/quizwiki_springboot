@@ -1,6 +1,4 @@
-package com.multi.quizwiki.entity.pboard;
-
-import java.sql.Timestamp;
+package com.multi.quizwiki.pboard.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class PboardLikeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	String pboardLikeId;
+	int pboardLikeId;
 	String memberId;
 	int pboardId;
 	

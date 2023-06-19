@@ -5,15 +5,17 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,26 +23,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.UriUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.multi.quizwiki.common.FileUploadLogicService;
-import com.multi.quizwiki.entity.pboard.PboardEntity;
-import com.multi.quizwiki.entity.pboard.PboardReplyEntity;
-import com.multi.quizwiki.entity.problem.PrintFileEntity;
-import com.multi.quizwiki.entity.problem.ProblemEntity;
-import com.multi.quizwiki.service.PboardService;
-
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.multi.quizwiki.pboard.entity.PboardEntity;
+import com.multi.quizwiki.pboard.entity.PboardReplyEntity;
+import com.multi.quizwiki.pboard.entity.PrintFileEntity;
+import com.multi.quizwiki.pboard.entity.ProblemEntity;
+import com.multi.quizwiki.pboard.entity.ProblemLikeEntity;
+import com.multi.quizwiki.pboard.entity.SolvEntity;
+import com.multi.quizwiki.pboard.service.PboardService;
 
 
 @Controller
@@ -58,18 +60,35 @@ public class PboardController {
 		this.pboardService = pboardService;
 		this.fileUpload = fileUpload;
 	}
-	
 
 	@GetMapping("/pboard/list")
 	public String show_pboard_list(Model model, 
 			int cate,
 			@RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "20") int size
+			@RequestParam(defaultValue = "20") int size,
+			
+			@RequestParam(value="stype", required = false) String stype,
+			@RequestParam(value="keyword", required = false) String keyword
 			) {
 		
 		PageRequest pageReq = PageRequest.of(page-1, size, Sort.by("pboardRegDate").descending());
 		
-		Page<PboardEntity> pboardPage = pboardService.pboard_findByCate(cate, pageReq);
+		Page<PboardEntity> pboardPage = null;
+		
+		System.out.println(stype);
+		System.out.println(keyword);
+		if(stype != null && keyword != null) {
+			
+			if(stype.equals("title")) {
+				pboardPage = pboardService.pboard_findByCateTitleContaining(cate, keyword, pageReq);
+			}else if(stype.equals("id")){
+				pboardPage = pboardService.pboard_findByCateMemberIdContaining(cate, keyword, pageReq);
+			}
+			
+		}else {
+			pboardPage = pboardService.pboard_findByCate(cate, pageReq);
+		}
+		
 		
 		int totalPage = pboardPage.getTotalPages();
 		
@@ -90,8 +109,10 @@ public class PboardController {
 		model.addAttribute("state","w");
 		return "thymeleaf/pboard/pboard_write";
 	}
+	
+	//write 메소드안에서 파라미터값으로 분기처리해도 되지만 그냥 따로 만듬
 	@GetMapping("/pboard/edit")
-	public String show_pboard_edit(Model model, String no) {
+	public String show_pboard_edit(Model model, int no) {
 		model.addAttribute("problemCateList",pboardService.problemCate_findAll());
 		model.addAttribute("pboard",pboardService.pboard_findById(no));
 		model.addAttribute("state","e");
@@ -99,7 +120,7 @@ public class PboardController {
 	}
 	
 	@GetMapping("/pboard/read")
-	public String show_pboard_read(Model model , String no) {
+	public String show_pboard_read(Model model , int no) {
 		
 		PboardEntity pboard = pboardService.pboard_findById(no);
 		model.addAttribute("pboard",pboard);
@@ -108,10 +129,10 @@ public class PboardController {
 	}
 	
 	@GetMapping("/pboard/cbt")
-	public String show_cbt(String no , Model model) {
+	public String show_pboard_cbt(int no , Model model) {
 		PboardEntity pboard = pboardService.pboard_findById(no);
-		model.addAttribute("title",pboard.getPboardTitle());
-		model.addAttribute("problemList",pboard.getProblemList());
+		model.addAttribute("pboard",pboard);
+		
 		return "thymeleaf/pboard/cbt";
 	}
 	
@@ -119,7 +140,7 @@ public class PboardController {
 	
 	@PostMapping(value="/pboard/write")
 	@ResponseBody
-	public String pboard_write(
+	public int pboard_write(
 		@RequestPart(name= "sendData") String sendData, 
 		@RequestPart(name = "printfile", required = false) List<MultipartFile> printfileList) throws JsonMappingException, JsonProcessingException{
 		
@@ -133,7 +154,7 @@ public class PboardController {
 	
 	@PostMapping(value="/pboard/edit")
 	@ResponseBody
-	public String pboard_edit(
+	public int pboard_edit(
 		@RequestPart(name= "sendData") String sendData, 
 		@RequestPart(name = "printfile", required = false) List<MultipartFile> printfileList) throws JsonMappingException, JsonProcessingException{
 
@@ -184,14 +205,14 @@ public class PboardController {
 	}
 	
 	
-	@PostMapping(value="/pboard/find")
+	@PostMapping(value="/get/pboard")
 	@ResponseBody
-	public PboardEntity pboard_get(String no) {
+	public PboardEntity pboard_get(int no) {
 		return pboardService.pboard_findById(no);
 	}
 	
 	@RequestMapping("/printfile/find/{problemId}")
-	public ResponseEntity<UrlResource> printfile_fild(@PathVariable String problemId) throws MalformedURLException{
+	public ResponseEntity<UrlResource> printfile_fild(@PathVariable int problemId) throws MalformedURLException{
 		PrintFileEntity printfile = pboardService.printfile_findByProblemId(problemId);
 		UrlResource resource = new UrlResource("file:"+fileUpload.getUploadpath(printfile.getPrintfileStore()));
 		
@@ -202,4 +223,49 @@ public class PboardController {
 				.contentType(MediaType.IMAGE_JPEG)
 				.body(resource);
 	}
+	
+	@GetMapping(value="/get/problemlike")
+	@ResponseBody
+	public JsonNode problem_like_get(int problemId , HttpSession session) throws JsonProcessingException {
+		
+		String memberId = "test";//세션에서 받아와야함.
+		String msg = "false";
+		
+		ProblemLikeEntity problemLike = pboardService.problemlike_findByMemberIdAndProblemId(memberId, problemId);
+		if(problemLike != null) {
+			msg = "true";
+		}
+		return util.CalcUtil.getJsonStringAsResForm(problemLike, msg);
+	}
+	
+	@PostMapping(value="/post/problemlike")
+	@ResponseBody
+	public JsonNode problem_like_post(int problemId , HttpSession session) throws JsonProcessingException {
+		
+		String memberId = "test";//세션에서 받아와야함.
+		String msg = "false";
+		
+		ProblemLikeEntity problemLike = pboardService.problemlike_insert(new ProblemLikeEntity(problemId, memberId));
+		if(problemLike != null) {
+			msg = "true";
+		}
+		return util.CalcUtil.getJsonStringAsResForm(problemLike, msg);
+	}
+	
+	@PostMapping(value="/post/solv")
+	@ResponseBody
+	public JsonNode solv_post(@RequestBody List<SolvEntity> solvList , HttpSession session) {
+		System.out.println(solvList);
+		String memberId = "test";//세션에서 받아와야함.
+		String msg = "false";
+		
+		List<SolvEntity> savedList = pboardService.solv_insertAll(solvList);
+		
+		if(savedList != null) {
+			msg="true";
+		}
+		
+		return util.CalcUtil.getJsonStringAsResForm(savedList, msg);
+	}
+
 }
