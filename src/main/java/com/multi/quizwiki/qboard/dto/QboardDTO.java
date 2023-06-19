@@ -19,9 +19,9 @@ public class QboardDTO {
 	private String content; //게시물내용 text
 	private Timestamp regdate; // 게시물등록시간 datetime
 	private Timestamp editDate;
-	int comment_Count;
-	int like_Count;
-	int view_Count;
+	int comment_count;
+	int like_count;
+	int view_count;
 	
 	
 }
