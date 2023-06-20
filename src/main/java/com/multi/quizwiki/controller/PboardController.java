@@ -135,7 +135,7 @@ public class PboardController {
 		
 		return "thymeleaf/pboard/cbt";
 	}
-	
+	 
 	
 	
 	@PostMapping(value="/pboard/write")

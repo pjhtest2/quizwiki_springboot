@@ -1,3 +1,4 @@
+
 package com.multi.quizwiki.service;
 
 import com.multi.quizwiki.dto.MemberDTO;
@@ -20,3 +21,4 @@ public interface MemberService {
 	public void certifiedPhoneNumber(String telnum, String numStr);
 
 }
+

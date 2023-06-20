@@ -1,27 +1,35 @@
 package com.multi.quizwiki.qboard.entity;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.multi.quizwiki.qboard.dto.QboardDTO;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import lombok.Data;
-
-@Data
+@Getter
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name ="qboard")
+
 public class QboardEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
-	private long qboardId;
+	private Long qboardId;
 	private String memberId;
 	private String title;
 	private String content;
@@ -29,19 +37,41 @@ public class QboardEntity {
 	private Timestamp regDate;
 	@UpdateTimestamp
 	private Timestamp editDate;
-	int comment_Count;
-	int like_Count;
-	int view_Count;
+	private int comment_Count;
+	private int like_Count;
+	private int view_Count;
+	private char deleteYn; //삭제여부
 	
-	public static QboardEntity toSaveEntity(QboardDTO qboard) {
-		QboardEntity qboardEntity = new QboardEntity();
-		qboardEntity.setQboardId(qboard.getQboard_id());
-		qboardEntity.setMemberId(qboard.getMember_id());
-		qboardEntity.setTitle(qboard.getTitle());
-		qboardEntity.setContent(qboard.getContent());
-		qboardEntity.setRegDate(qboard.getRegdate());
-		qboardEntity.setEditDate(qboard.getEditDate());
+	
+	@Builder
+	public QboardEntity(Long qboardId, String memberId, String title, String content) {
 		
-		return qboardEntity;
+		this.qboardId = qboardId;
+		this.memberId = memberId;
+		this.title = title;
+		this.content = content;
+		
+		
 	}
+	//게시글 수정
+	public void update(String memberId, String title, String content, Timestamp editDate) {
+		
+		this.memberId = memberId;
+		this.title = title;
+		this.content = content;
+		this.editDate = editDate;
+	}
+	//게시글 삭제
+	public void delete() {
+		this.deleteYn ='Y';
+		
+	}
+	
+	public  void increaseView_Count() {
+		this.view_Count++; 
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "qboardId")
+	private List<QboardReplyEntity> qboardReplyList = new ArrayList<>();
 }
