@@ -8,7 +8,10 @@ public interface MemberService {
 	MemberDTO login(MemberDTO loginUser);
 	
 	//아이디 중복
-	public int idCheck(MemberDTO member_id) throws Exception;
+	int idCheck(MemberDTO member_id) throws Exception;
+	
+	//회원가입
+	void register(MemberDTO user) throws Exception;
 	
 	//sms
 	public void certifiedPhoneNumber(String telnum, String numStr);

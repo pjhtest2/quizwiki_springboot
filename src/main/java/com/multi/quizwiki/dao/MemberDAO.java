@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.multi.quizwiki.dao;
 
 import com.multi.quizwiki.dto.MemberDTO;
@@ -19,3 +20,27 @@ public interface MemberDAO {
 	public void certifiedPhone(String telnum);
 	public void certifiedNum(String numStr);
 }
+=======
+package com.multi.quizwiki.dao;
+
+import com.multi.quizwiki.dto.MemberDTO;
+
+public interface MemberDAO {
+	
+	// 로그인
+	MemberDTO login(MemberDTO loginUser);
+	
+	// 아이디 중복 체크
+	int idCheck(MemberDTO member_id) throws Exception;
+	
+	// 회원가입
+	void register(MemberDTO user) throws Exception;
+	
+	
+	
+	
+	
+	public void certifiedPhone(String telnum);
+	public void certifiedNum(String numStr);
+}
+>>>>>>> refs/remotes/main/main

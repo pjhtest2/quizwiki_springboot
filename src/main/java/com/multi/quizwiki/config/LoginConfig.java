@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.multi.quizwiki.interceptor.LoginCheckInterceptor;
 
+
 @Configuration
 public class LoginConfig implements WebMvcConfigurer{
 	@Override

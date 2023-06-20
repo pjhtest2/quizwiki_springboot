@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 
 import com.multi.quizwiki.qboard.entity.QboardEntity;
 
+import jdk.nashorn.internal.objects.annotations.Getter;
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
