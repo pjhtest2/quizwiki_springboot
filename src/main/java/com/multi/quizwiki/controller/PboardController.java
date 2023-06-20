@@ -114,7 +114,7 @@ public class PboardController {
 		model.addAttribute("problemList",pboard.getProblemList());
 		return "thymeleaf/pboard/cbt";
 	}
-	
+	 
 	
 	
 	@PostMapping(value="/pboard/write")

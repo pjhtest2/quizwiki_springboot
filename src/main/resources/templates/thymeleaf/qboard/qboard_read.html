@@ -12,30 +12,35 @@ layout:fragment="content"><head>
 </head>
 <body>
 <section class="content" >
-		<form>
+			
 		<div class="question-detail_header">
 			<div class="question-detail_title">
 				<h1 th:text="${qboard.title}"> </h1>
+						
 			</div>
 		</div>
 		<div class="header_sub-title flex-row">
 			<img class="comment_user-profile" alt="" src="" />
 			<div class="flex-column">
 			<h6 class="user-name" th:text="${qboard.member_id}">
-				<a>shj</a>
+				<a></a>
 			</h6>
 			<div class="header__sub-title__content">
-
-
-				<div class="content-date">
+					<div class="content-date">
 					<span class="sub-title sub-title__created-at"> <span
 						class="sub-title__title">작성일</span> <span class="sub-title__value" th:text="${qboard.regdate}">23.05.29</span>
 					</span> <span class="sub-title sub-title__view-count"> <span
 						class="sub-title__title">조회수</span> <span class="sub-title__value" th:text="${qboard.view_Count}">42</span>
 					</span>
-				</div>
+					</div>
 			</div>
+			<div	>
+			<a th:href="@{/quizwiki/qboard/write.do( qboard_id=${qboard.qboard_id} )}" class="btns btn_bdr4 btn_mid">수정</a>
+				<button onclick="deleteBoard();">삭제</button>
+			
 			</div>
+		</div>		
+		
 		</div>
 		<div class="post-content">
 			<div class="content_body" th:text="${qboard.content}">
@@ -46,13 +51,14 @@ layout:fragment="content"><head>
 			</div>
 
 		</div>
-	</form>	
+	
+	
 	</section>
 
 	<section class="question-post-detail">
 		<div class="section_content">
 			<div class="answer-info_header">
-				<div class="answer-info_title">
+				<div class="answer-info_title" >
 					댓글 <span class="answer-info_title--count" th:text="${qboard.comment_Count}">1</span>
 				</div>
 			</div>
@@ -67,22 +73,24 @@ layout:fragment="content"><head>
 			</div>
 		</div>
 		<div>
-			<div class="content_body">
-				<div class="content_body_comment-list">
+			<div class="content_body" >
+				<div class="content_body_comment-list" >
 					<div class="answer_comment">
+						<ui class="comment-list">
+						<li th:each="reply:${replylist}">
 						<div class="comment-card">
 							<div class="comment_header flex-row">
 								<img class="comment_user-profile" alt="" src="" />
 
 								<div class="comment_sub-header">
 									<div class="comment_user-name-container">
-										<a href="" class="comment_user-name">code</a>
+										<a href="" class="comment_user-name" >code</a>
 									</div>
-									<span class="comment_update">2023.05.20</span>
+									<span class="comment_update" >2023.05.20</span>
 								</div>
 							</div>
 							<div class="comment_body markdown-body">
-								<p>답변: "문법적으로 옳지 않은 문장은 b) I have saw that movie three times
+								<p th:text="${reply.qboardReplyContent}">답변: "문법적으로 옳지 않은 문장은 b) I have saw that movie three times
 									already. 입니다. 이 문장에서 'have saw'는 현재 완료 시제의 형태를 잘못 사용한 것입니다. 올바른
 									형태는 'have seen'이어야 합니다. 'have'와 과거 분사 형태를 함께 사용하여 과거의 경험을 나타내는
 									현재 완료 시제를 표현해야 합니다."</p>
@@ -90,6 +98,8 @@ layout:fragment="content"><head>
 
 
 						</div>
+						</li>
+						</ui>
 						<div class="comment_re-comment">
 							<div class="re-comment__header flex-row"
 								style="justify-content: space-between;">
@@ -144,5 +154,39 @@ layout:fragment="content"><head>
 		}
 	});
 	</script>
+	<th:block layout:fragment="script">
+    
+  <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        	
+        
+            // 게시글 삭제
+            function deleteBoard() {
+                const qboard_id = /*[[ ${qboard.qboard_id} ]]*/"";
+
+                if ( !confirm( '해당글을 삭제할까요?') ) {
+                    return false;
+                }
+
+                const formHtml = `
+                    <form id="deleteForm" action="/quizwiki/qboard/delete" method="get">
+                        <input type="hidden" id="qboard_id" name="qboard_id" value="${qboard_id}" />
+                    </form>
+                `;
+                const doc = new DOMParser().parseFromString(formHtml, 'text/html');
+                const form = doc.body.firstChild;
+                document.body.append(form);
+                document.getElementById('deleteForm').submit();
+            }
+
+        
+        
+        /*]]>*/
+
+        </script>
+</th:block>
+   
+</th:block>
 </body>
 </html>

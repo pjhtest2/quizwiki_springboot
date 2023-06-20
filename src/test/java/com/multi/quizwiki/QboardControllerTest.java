@@ -25,12 +25,7 @@ public class QboardControllerTest {
 		log.info("hu");
 	}
 	
-	@Test
-	public void QboardWrtie() {
-		QboardDTO dto = new QboardDTO();
-		dto.setContent("content");
-		dto.setTitle("title");
-	}
+	
 	
 	void testdb() {
 		
