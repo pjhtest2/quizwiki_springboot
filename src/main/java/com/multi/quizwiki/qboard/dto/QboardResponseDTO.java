@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 import com.multi.quizwiki.qboard.entity.QboardEntity;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
+import lombok.Getter;
 
 @Getter
 public class QboardResponseDTO {
