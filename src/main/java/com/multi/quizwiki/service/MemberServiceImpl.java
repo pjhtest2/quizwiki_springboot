@@ -68,6 +68,13 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 	
+	// 아이디 찾기
+	@Override
+	public MemberDTO find_id(MemberDTO dto) {
+		MemberDTO id = dao.find_id(dto);
+		return id;
+	}
+	
 	@Override
 	 public void certifiedPhoneNumber(String telnum, String numStr) {
 		 

@@ -8,6 +8,22 @@
 	rel='stylesheet'>
 <link rel="stylesheet" type="text/css" href="./css/common.css" />
 <link rel="stylesheet" type="text/css" href="./css/member/login.css" />
+
+<script type="text/javascript">
+
+function chk_form() {
+	if(document.getElementById("member_id").value==''){
+		alert("아이디를 입력하세요.");
+		return false;
+	}
+	if(document.getElementById("member_pass").value==''){
+		alert("비밀번호를 입력하세요.");
+		return false;
+	}
+	document.getElementById('login-in').submit();
+	}
+</script>
+
 </head>
 <body>
 	<script type="text/javascript" src="./js/member/login.js"></script>
@@ -24,11 +40,11 @@
 					
 					<div class="login__box">
 						<i class='bx bx-user login__icon'></i> <input type="text"
-							placeholder="아이디" class="login__input" name="member_id">
+							placeholder="아이디" class="login__input" id="member_id" name="member_id">
 					</div>
 					<div class="login__box">
 						<i class='bx bx-lock login__icon'></i> <input type="password"
-							placeholder="패스워드" class="login__input" name="member_pass">
+							placeholder="패스워드" class="login__input" id="member_pass" name="member_pass">
 					</div>
 
 					<div class="login__forgot_box">
@@ -70,8 +86,7 @@
 							</a>
 						</div>
 					</div>
-					<button class="login__button" type="submit">로그인</button>
-
+						<a class="login__button" onclick="chk_form()">로그인</a>
 					<div>
 						<span class="login__account login__account--account">계정이 없으신가요?</span> 
 						<span class="login__signin login__signin--signup" id="sign-up">
