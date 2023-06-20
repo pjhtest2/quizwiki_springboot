@@ -1,6 +1,5 @@
-package com.multi.quizwiki.dao;
 
-import javax.transaction.Transactional;
+package com.multi.quizwiki.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +46,14 @@ public class MemberDAOImpl implements MemberDAO {
 		sqlSession.insert("com.multi.quizwiki.member.insert", user);
 	}
 	
+	// 아이디 찾기
+	@Override
+	public MemberDTO find_id(MemberDTO dto) {
+		System.out.println(dto+"daoimpl");
+		MemberDTO id = sqlSession.selectOne("com.multi.quizwiki.member.findid", dto);
+		System.out.println(id);
+		return id;
+	}
 	
 	@Override
 	public void certifiedPhone(String telnum) {
@@ -62,8 +69,10 @@ public class MemberDAOImpl implements MemberDAO {
 		
 	}
 
+
 	
 	
 	
 
 }
+
