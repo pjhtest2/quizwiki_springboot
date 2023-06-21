@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -152,7 +153,25 @@ public class MemberController {
 	}
 
 	
-
+	// 아이디 찾기 실행
+		@RequestMapping(value = "/find_id.do", method = RequestMethod.POST)
+		public String findIdAction(MemberDTO dto, Model model) {
+			MemberDTO member_id = service.find_id(dto);
+			System.out.println(dto);
+			if(member_id == null) {
+				System.out.println("null일 경우");
+				model.addAttribute("check", 1);
+				
+			} else {
+				System.out.println("null 아닐 경우");
+				model.addAttribute("check", 0);
+				model.addAttribute("member_id", member_id.getMember_id());
+			}
+			System.out.println(member_id);
+			return "thymeleaf/member/login_id_forgot_find";
+		}
+		
+		
 	// 대학교 메일 인증
 	/*
 	 * @RequestMapping(value = "https://univcert.com/api/v1/certify", produces =

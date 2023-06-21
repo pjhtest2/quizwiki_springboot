@@ -13,6 +13,10 @@ public interface MemberService {
 	//회원가입
 	void register(MemberDTO user) throws Exception;
 	
+	// 아이디 찾기
+		public MemberDTO find_id(MemberDTO dto);
+	
 	//sms
 	
+	public void certifiedPhoneNumber(String telnum, String numStr);
 }

@@ -46,6 +46,27 @@ public class MemberDAOImpl implements MemberDAO {
 	public void register(MemberDTO user) throws Exception {
 		sqlSession.insert("com.multi.quizwiki.member.insert", user);
 	}
+
+	// 아이디 찾기
+		@Override
+		public MemberDTO find_id(MemberDTO dto) {
+			System.out.println(dto+"daoimpl");
+			MemberDTO id = sqlSession.selectOne("com.multi.quizwiki.member.findid", dto);
+			System.out.println(id);
+			return id;
+		}
+
+	@Override
+	public void certifiedPhone(String telnum) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void certifiedNum(String numStr) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

@@ -15,6 +15,14 @@ public interface MemberDAO {
 	void register(MemberDTO user) throws Exception;
 
 	
+	// 아이디 찾기
+		public MemberDTO find_id(MemberDTO dto);
+		
+		
+		
+		public void certifiedPhone(String telnum);
+		public void certifiedNum(String numStr);
+
 	
 	
 }
