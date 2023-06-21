@@ -1,6 +1,7 @@
 package com.multi.quizwiki.controller;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +51,18 @@ public class QboardController {
 	public String show_qboard_read() {
 		return "thymeleaf/qboard/qboard_read";
 	}
+	
+	 // 쿼리 스트링 파라미터를 Map에 담아 반환
+    private Map<String, Object> queryParamsToMap(final SearchDto queryParams) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("page", queryParams.getPage());
+        data.put("recordSize", queryParams.getRecordSize());
+        data.put("pageSize", queryParams.getPageSize());
+        data.put("keyword", queryParams.getKeyword());
+        data.put("searchType", queryParams.getSearchType());
+        return data;
+    }
+
 	
 	@RequestMapping("/qboard/write.do")
 	public String QboardWrite(@RequestParam(value="qboard_id", required = false) Long qboard_id, Model model,QboardDTO dto) {

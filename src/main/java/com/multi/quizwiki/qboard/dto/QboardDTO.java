@@ -19,12 +19,13 @@ public class QboardDTO {
 	private String category;
 	private String title; // //게시물 제목
 	private String content; //게시물내용 text
-	private Timestamp regdate; // 게시물등록시간 datetime
+	private Timestamp regDate; // 게시물등록시간 datetime
 	private Timestamp editDate;
 	int comment_Count;
 	int like_Count;
 	int view_Count;
-	
+	private Boolean noticeYn;              // 공지글 여부
+	private Boolean deleteYn;              // 삭제 여부
 	
 	
 }

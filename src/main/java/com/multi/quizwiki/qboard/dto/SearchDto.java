@@ -1,10 +1,12 @@
 package com.multi.quizwiki.qboard.dto;
 
+import org.apache.ibatis.type.Alias;
+
 import com.multi.quizwiki.qboard.paging.Pagination;
 
 import lombok.Getter;
 import lombok.Setter;
-
+@Alias("Search")
 @Getter
 @Setter
 public class SearchDto {

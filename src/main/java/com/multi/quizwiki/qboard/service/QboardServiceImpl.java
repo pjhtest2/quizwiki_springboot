@@ -37,18 +37,18 @@ public class QboardServiceImpl implements QboardService {
 
 	}
 
-	@Override
+	@Override	
 	public PagingResponse<QboardDTO> getBoardList(SearchDto params) {
 		
 		int count = qboarddao.count(params);
 		if (count<1) {
 			return new PagingResponse<>(Collections.emptyList(), null);
 		}
-		
+		//pagination 객체를 생성해서 페이지 정보 계산 후 searchDto 타입의 객체인  params에 계산된 페이지 정보 저장
 		Pagination pagination = new Pagination(count, params);
 		params.setPagination(pagination);
 		
-		
+        // 계산된 페이지 정보의 일부(limitStart, recordSize)를 기준으로 리스트 데이터 조회 후 응답 데이터 반환
 		List<QboardDTO> list = qboarddao.getBoardList(params);
 		return new PagingResponse<>(list, pagination);
 	}
