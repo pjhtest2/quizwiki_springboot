@@ -14,6 +14,5 @@ public interface MemberService {
 	void register(MemberDTO user) throws Exception;
 	
 	//sms
-	public void certifiedPhoneNumber(String telnum, String numStr);
 	
 }

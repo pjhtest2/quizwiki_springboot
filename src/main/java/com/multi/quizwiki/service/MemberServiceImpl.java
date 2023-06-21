@@ -68,30 +68,7 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 	
-	@Override
-	 public void certifiedPhoneNumber(String telnum, String numStr) {
-		 
-		  String api_key = "NCSHJUW5DCMXSS7Y";
-          String api_secret = "UXVPXD24NSMYAELLTR5BW4RLVMSRAVVL";
-          Message coolsms = new Message(api_key, api_secret);
-
-        
-          HashMap<String, String> params = new HashMap<String, String>();
-          params.put("to", telnum);    
-          params.put("from", "01079196032");   
-          params.put("type", "SMS");
-          params.put("text", "작성할내용 "+numStr);
-          params.put("app_version", "test app 1.2"); // application name과 version
-
-          try {
-              JSONObject obj = (JSONObject) coolsms.send(params);
-              System.out.println(obj.toString());
-          } catch (CoolsmsException e) {
-              System.out.println(e.getMessage());
-              System.out.println(e.getCode());
-          }
-
-	}
+	
 
 	
 }

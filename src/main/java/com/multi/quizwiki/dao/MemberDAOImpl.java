@@ -48,19 +48,7 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	
-	@Override
-	public void certifiedPhone(String telnum) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void certifiedNum(String numStr) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	
 	
