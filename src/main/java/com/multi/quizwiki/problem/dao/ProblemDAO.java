@@ -1,16 +1,18 @@
-package com.multi.quizwiki.pboard.dao;
+package com.multi.quizwiki.problem.dao;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.multi.quizwiki.pboard.entity.PrintFileEntity;
-import com.multi.quizwiki.pboard.entity.ProblemCateEntity;
-import com.multi.quizwiki.pboard.entity.ProblemChoiseEntity;
-import com.multi.quizwiki.pboard.entity.ProblemEntity;
-import com.multi.quizwiki.pboard.entity.ProblemLikeEntity;
-import com.multi.quizwiki.pboard.entity.SolvEntity;
+import com.multi.quizwiki.dto.ProblemDTO;
+import com.multi.quizwiki.problem.entity.PrintFileEntity;
+import com.multi.quizwiki.problem.entity.ProblemCateEntity;
+import com.multi.quizwiki.problem.entity.ProblemChoiseEntity;
+import com.multi.quizwiki.problem.entity.ProblemEntity;
+import com.multi.quizwiki.problem.entity.ProblemInquiryEntity;
+import com.multi.quizwiki.problem.entity.ProblemLikeEntity;
+import com.multi.quizwiki.solv.entity.SolvEntity;
 
 public interface ProblemDAO {
 	public ProblemEntity insert(ProblemEntity problem);
@@ -31,4 +33,8 @@ public interface ProblemDAO {
 
 	public SolvEntity solv_insert(SolvEntity solv);
 	public List<SolvEntity> solv_insertAll(List<SolvEntity> solvList);
+	public ProblemInquiryEntity inquiry_insert(ProblemInquiryEntity problemInquiry);
+	
+	public List<ProblemDTO> problem_findLikedByMemberId(String memberId, int size , int page);
+	public List<ProblemDTO> problem_findOrderByInquiry(int limit);
 }
