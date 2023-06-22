@@ -1,4 +1,3 @@
-
 package com.multi.quizwiki.service;
 
 import java.util.HashMap;
@@ -69,16 +68,18 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 	
+
 	// 아이디 찾기
 	@Override
 	public MemberDTO find_id(MemberDTO dto) {
 		MemberDTO id = dao.find_id(dto);
 		return id;
 	}
-	
+
 	@Override
-	 public void certifiedPhoneNumber(String telnum, String numStr) {
-		 
+	public void certifiedPhoneNumber(String telnum, String numStr) {
+		
+		
 		  String api_key = "NCSHJUW5DCMXSS7Y";
           String api_secret = "UXVPXD24NSMYAELLTR5BW4RLVMSRAVVL";
           Message coolsms = new Message(api_key, api_secret);
@@ -100,7 +101,9 @@ public class MemberServiceImpl implements MemberService {
           }
 
 	}
+	
+	
+	
 
 	
 }
-

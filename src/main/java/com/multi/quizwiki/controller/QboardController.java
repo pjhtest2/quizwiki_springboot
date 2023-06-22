@@ -1,17 +1,21 @@
 package com.multi.quizwiki.controller;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.multi.quizwiki.qboard.dto.QboardDTO;
+import com.multi.quizwiki.qboard.dto.SearchDto;
 import com.multi.quizwiki.qboard.entity.QboardReplyEntity;
+import com.multi.quizwiki.qboard.paging.PagingResponse;
 import com.multi.quizwiki.qboard.service.QboardService;
 import com.multi.quizwiki.qboard.service.QboardServiceJPA;
 
@@ -48,6 +52,18 @@ public class QboardController {
 		return "thymeleaf/qboard/qboard_read";
 	}
 	
+	 // 쿼리 스트링 파라미터를 Map에 담아 반환
+    private Map<String, Object> queryParamsToMap(final SearchDto queryParams) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("page", queryParams.getPage());
+        data.put("recordSize", queryParams.getRecordSize());
+        data.put("pageSize", queryParams.getPageSize());
+        data.put("keyword", queryParams.getKeyword());
+        data.put("searchType", queryParams.getSearchType());
+        return data;
+    }
+
+	
 	@RequestMapping("/qboard/write.do")
 	public String QboardWrite(@RequestParam(value="qboard_id", required = false) Long qboard_id, Model model,QboardDTO dto) {
 	
@@ -64,10 +80,10 @@ public class QboardController {
 	
 	
 	  @GetMapping("/qboard/list.do") 
-	  public String QboardList(Model model) {
+	  public String QboardList(@ModelAttribute("params") SearchDto params, Model model) {
 		  log.info("list.do 실행");
-		  List<QboardDTO> qboardList = qboardservice.getBoardList();
-		  model.addAttribute("qboardlist",qboardList); 
+		  PagingResponse<QboardDTO> qboardlist = qboardservice.getBoardList(params);
+		  model.addAttribute("qboardlist",qboardlist); 
 	  		
 	  	return "thymeleaf/qboard/qboard_list"; 
 	  

@@ -7,6 +7,10 @@ layout:fragment="content"><head>
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="/css/qboard/qna.css" />
 
+
+<script th:src="@{/js/qboard/function.js}"></script>
+<script th:src="@{/js/qboard/jquery-3.6.0.min.js}"></script>
+
 <script src="https://kit.fontawesome.com/e92cf22849.js"
 	crossorigin="anonymous"></script>
 </head>
@@ -28,7 +32,7 @@ layout:fragment="content"><head>
 			<div class="header__sub-title__content">
 					<div class="content-date">
 					<span class="sub-title sub-title__created-at"> <span
-						class="sub-title__title">작성일</span> <span class="sub-title__value" th:text="${qboard.regdate}">23.05.29</span>
+						class="sub-title__title">작성일</span> <span class="sub-title__value" th:text="${qboard.regDate}">23.05.29</span>
 					</span> <span class="sub-title sub-title__view-count"> <span
 						class="sub-title__title">조회수</span> <span class="sub-title__value" th:text="${qboard.view_Count}">42</span>
 					</span>
@@ -64,41 +68,26 @@ layout:fragment="content"><head>
 			</div>
 
 		</div>
+		<!-- 댓글 작성	 -->
 		<div class="question-post-info_content">
 			<div class="answer-comment">
 				<div class="bootstrap-components comment__input">
 					<input type="text"  id="textInput" placeholder="shj님, 댓글을 작성해보세요."
 						class="form-control form-control-lg " required="">
+					<textarea class="form-control form-control-lg " name="content" id="content" rows="5" cols="30" ></textarea>
+					 <span><button type="button" class="btns" onclick="saveComment();">등 록</button> <i id="counter">0/300자</i></span>	
+					 
 				</div>
+				
 			</div>
 		</div>
 		<div>
 			<div class="content_body" >
+				<!--  /* 댓글 렌더링 */ -->
 				<div class="content_body_comment-list" >
 					<div class="answer_comment">
-						<ui class="comment-list">
-						<li th:each="reply:${replylist}">
-						<div class="comment-card">
-							<div class="comment_header flex-row">
-								<img class="comment_user-profile" alt="" src="" />
-
-								<div class="comment_sub-header">
-									<div class="comment_user-name-container">
-										<a href="" class="comment_user-name" >code</a>
-									</div>
-									<span class="comment_update" >2023.05.20</span>
-								</div>
-							</div>
-							<div class="comment_body markdown-body">
-								<p th:text="${reply.qboardReplyContent}">답변: "문법적으로 옳지 않은 문장은 b) I have saw that movie three times
-									already. 입니다. 이 문장에서 'have saw'는 현재 완료 시제의 형태를 잘못 사용한 것입니다. 올바른
-									형태는 'have seen'이어야 합니다. 'have'와 과거 분사 형태를 함께 사용하여 과거의 경험을 나타내는
-									현재 완료 시제를 표현해야 합니다."</p>
-							</div>
-
-
-						</div>
-						</li>
+						<ui class="comment-list" 	>
+					
 						</ui>
 						<div class="comment_re-comment">
 							<div class="re-comment__header flex-row"
@@ -153,13 +142,15 @@ layout:fragment="content"><head>
 			bUseModeChanger : false
 		}
 	});
-	</script>
+</script>
 	<th:block layout:fragment="script">
     
   <script th:inline="javascript">
         /*<![CDATA[*/
 
-        	
+        	 window.onload = () => {
+                findAllComment();
+            }
         
             // 게시글 삭제
             function deleteBoard() {
@@ -181,12 +172,95 @@ layout:fragment="content"><head>
             }
 
         
-        
+            // 댓글 저장
+            function saveComment() {
+
+                const content = document.getElementById('content');
+                isValid(content, '댓글');
+
+                const qboardId = /*[[ ${qboard.qboard_id} ]]*/'';
+                const params = {
+                    qboardId : qboardId,
+                    content : content.value,
+                    memberId : '홍길동'
+                }
+
+                $.ajax({
+                    url : `/qboard/${qboardId}/comments`,
+                    type : 'post',	
+                    contentType : 'application/json; charset=utf-8',
+                    dataType : 'json',
+                    data : JSON.stringify(params),
+                    async : false,
+                    success : function (qboardlist) {
+                        console.log(qboardlist);
+                    },
+                    error : function (request, status, error) {
+                        console.log(error)
+                    }
+                })
+            }
+
+            //전체 댓글 조회
+              function findAllComment() {
+
+                const qboardId = /*[[ ${qboard.qboard_id} ]]*/'';
+
+                $.ajax({
+                    url : `/qboard/${qboardId}/comments`,
+                    type : 'get',
+                    dataType : 'json',
+                    async : false,
+                    success : function (qboardlist) {
+
+                        // 1. 조회된 데이터가 없는 경우
+                        if ( !qboardlist.length ) {
+                            document.querySelector('.comment-list').innerHTML = '<div class="cm_none"><p>등록된 댓글이 없습니다.</p></div>';
+                            return false;
+                        }
+
+                        // 2. 렌더링 할 HTML을 저장할 변수
+                        let commentHtml = '';
+
+                        // 3. 댓글 HTML 추가
+                        qboardlist.forEach(row => {
+                            commentHtml += `
+                            	<li >
+        						<div class="comment-card">
+        							<div class="comment_header flex-row">
+        								<img class="comment_user-profile" alt="" src="" />
+
+        								<div class="comment_sub-header">
+        									<div class="comment_user-name-container">
+        										<a href="" class="comment_user-name" >${row.memberId}</a>
+        									</div>
+        									<span class="comment_update" >${row.regDate}</span>
+        								</div>
+        							</div>
+        							<div class="comment_body markdown-body">
+        								<p >${row.content}</p>
+        							</div>
+
+
+        						</div>
+        						</li>
+                            `;
+                        })
+
+                        // 4. class가 "comment_list"인 요소를 찾아 HTML을 렌더링
+                        document.querySelector('.comment_list').innerHTML = commentHtml;
+                    },
+                    error : function (request, status, error) {
+                        console.log(error)
+                    }
+                })
+            }
+
         /*]]>*/
 
         </script>
 </th:block>
    
-</th:block>
+
 </body>
 </html>

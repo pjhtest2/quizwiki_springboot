@@ -3,21 +3,69 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.multi.quizwiki.qboard">
+  
+    <!-- 게시글 검색 -->
+    <sql id="search">
+        <!-- 검색 키워드가 있을 때 -->
+        <if test="keyword != null and keyword != ''">
+            <choose>
+                <!-- 검색 유형이 있을 때 -->
+                <when test="searchType != null and searchType != ''">
+                    <choose>
+                        <when test="'title'.equals( searchType )">
+                            AND title LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="'content'.equals( searchType )">
+                            AND content LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                        <when test="''.equals( searchType )">
+                            AND member_id LIKE CONCAT('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </when>
+
+                <!-- 전체 검색일 때 -->
+                <otherwise>
+                    AND (
+                           title LIKE CONCAT('%', #{keyword}, '%')
+                        OR content LIKE CONCAT('%', #{keyword}, '%')
+                        OR member_id LIKE CONCAT('%', #{keyword}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+  
   <!--게시물 등록  -->
   	<insert id="insert" parameterType="qboard" useGeneratedKeys="true" keyProperty="qboard_id">
     INSERT INTO qboard 
-    VALUES (#{qboard_id}, #{member_id},#{category},#{title}, #{content}, now(),null,0,0,0)
+    VALUES (#{qboard_id}, #{member_id},#{category},#{title}, #{content}, now(),null,0,0,0,#{notice_Yn},0)
 </insert>
+ 
+ 
   <!-- 게시글 상세정보조회 -->
   <select id="findById" parameterType="Long" resultType="qboard">
   	select * from qboard where qboard_id =#{qboard_id}
   	
   </select> 
+ 
+ 
  <!-- 게시글 리스트 -->
-  <select id="selectqboardlist" resultType="qboard" parameterType="qboard">
-  		select * from qboard ORDER BY regdate DESC
-  <!-- 게시글 수정  -->
+  <select id="selectqboardlist" resultType="qboard" parameterType="Search">
+  		 SELECT
+  		 	*
+        FROM
+            qboard
+       	where 
+       		 delete_yn = 0
+       		 <include refid="search" /> 
+        	order by
+        		regDate DESC
+        LIMIT #{pagination.limitStart}, #{recordSize}
   </select> 
+     
+     
+ <!-- 게시글 수정  -->
    <update id="update" parameterType="qboard">
    		update qboard set editDate = now() 
    						,title =#{title}
@@ -26,9 +74,25 @@
    			where  
    				qboard_id =#{qboard_id}
    </update>
+	
+	
 	<!--  게시글 삭제 -->
 	<delete id="deleteById" parameterType="long" >
 			delete from qboard where qboard_id=#{qboard_id}
 	</delete>
+  
+  
+  <!-- 게시글 수 카운트 -->
+  <select id="count" parameterType="Search" resultType="int">
+  	select 
+  		count(*)
+  	from 
+  		qboard
+  	where 
+  		delete_yn = 0	
+  		 <include refid="search" />  
+  		
+  </select>
+  
   
   </mapper>
