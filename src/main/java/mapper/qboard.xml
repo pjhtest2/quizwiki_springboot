@@ -88,6 +88,8 @@
   		count(*)
   	from 
   		qboard
+  	where 
+  		delete_yn = 0	
   		 <include refid="search" />  
   		
   </select>
