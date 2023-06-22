@@ -13,16 +13,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.multi.quizwiki.common.FileUploadLogicService;
 import com.multi.quizwiki.pboard.dao.PboardDAO;
-import com.multi.quizwiki.pboard.dao.ProblemDAO;
 import com.multi.quizwiki.pboard.entity.PboardCateEntity;
 import com.multi.quizwiki.pboard.entity.PboardEntity;
+import com.multi.quizwiki.pboard.entity.PboardLikeEntity;
 import com.multi.quizwiki.pboard.entity.PboardReplyEntity;
-import com.multi.quizwiki.pboard.entity.PrintFileEntity;
-import com.multi.quizwiki.pboard.entity.ProblemCateEntity;
-import com.multi.quizwiki.pboard.entity.ProblemChoiseEntity;
-import com.multi.quizwiki.pboard.entity.ProblemEntity;
-import com.multi.quizwiki.pboard.entity.ProblemLikeEntity;
-import com.multi.quizwiki.pboard.entity.SolvEntity;
+import com.multi.quizwiki.problem.dao.ProblemDAO;
+import com.multi.quizwiki.problem.entity.PrintFileEntity;
+import com.multi.quizwiki.problem.entity.ProblemCateEntity;
+import com.multi.quizwiki.problem.entity.ProblemChoiseEntity;
+import com.multi.quizwiki.problem.entity.ProblemEntity;
+import com.multi.quizwiki.problem.entity.ProblemInquiryEntity;
+import com.multi.quizwiki.problem.entity.ProblemLikeEntity;
+import com.multi.quizwiki.solv.entity.SolvEntity;
 
 import lombok.NoArgsConstructor;
 
@@ -44,6 +46,8 @@ public class PboardServiceImpl implements PboardService {
 	public void pboard_edit(PboardEntity pboard, List<ProblemEntity> problemList, List<List<String>> problemChoiseList,
 		List<MultipartFile> printfileList, List<Integer> printfileArr) {
 		int pboardId = pboard.getPboardId();
+		
+		pboardDAO.pboard_edit(pboard);
 		problemDAO.problem_editStatusByPboardId(pboardId);
 		
 //		옛날로직. 수정할때 기존 문제들을 삭제하고 새로 추가하는식으로 했었다. 
@@ -174,6 +178,26 @@ public class PboardServiceImpl implements PboardService {
 	@Override
 	public List<SolvEntity> solv_insertAll(List<SolvEntity> solvList) {
 		return problemDAO.solv_insertAll(solvList);
+	}
+
+	@Override
+	public ProblemInquiryEntity inquiry_insert(ProblemInquiryEntity problemInquiry) {
+		return problemDAO.inquiry_insert(problemInquiry);
+	}
+
+	@Override
+	public PboardLikeEntity pboardlike_insert(PboardLikeEntity pboardLike) {
+		return pboardDAO.pboardlike_insert(pboardLike);
+	}
+
+	@Override
+	public PboardLikeEntity pboardlike_findByMemeberIdAndPboardId(String memberId, int pboardId) {
+		return pboardDAO.pboardlike_findByMemeberIdAndPboardId(memberId, pboardId);
+	}
+
+	@Override
+	public void incrementShowCount(int pboardId) {
+		pboardDAO.incrementShowCount(pboardId);
 	}
 
 

@@ -1,4 +1,4 @@
-package com.multi.quizwiki.pboard.entity;
+package com.multi.quizwiki.problem.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,20 +14,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "problem_choise")
-public class ProblemChoiseEntity {
+@Table(name="problem_inquiry")
+public class ProblemInquiryEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int problemChoiseId;
+	int problemInquiryId;
+	String memberId;
 	int problemId;
-	String problemChoiseIndex;
-	String problemChoiseContent;
+	String problemInquiryContent;
 	
-	public ProblemChoiseEntity(int problemId, String problemChoiseIndex, String problemChoiseContent) {
+	public ProblemInquiryEntity(String memberId,int problemId , String problemInquiryContent) {
+		this.memberId = memberId;
 		this.problemId = problemId;
-		this.problemChoiseIndex = problemChoiseIndex;
-		this.problemChoiseContent = problemChoiseContent;
+		this.problemInquiryContent = problemInquiryContent;
 	}
-	
-	
 }

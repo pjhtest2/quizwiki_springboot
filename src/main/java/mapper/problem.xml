@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.quizwiki.problem">
+
+	<resultMap type="problem" id="problemWithInquiryCount">
+		<id property="problem_id" column="problem_id"/>
+		<result property="problem_type" column="problem_type"/>
+		<result property="problem_content" column="problem_content"/>
+		<result property="problem_index" column="problem_index"/>
+		<result property="problem_answer" column="problem_answer"/>
+		<result property="problem_print" column="problem_print"/>
+		<result property="problem_desc" column="problem_desc"/>
+		<result property="problem_status" column="problem_status"/>
+		<result property="problemInquiryCount" column="problemInquiryCount"/>
+	</resultMap>
+	
+	<resultMap type="problem" id="problemWithLikeCount">
+		<id property="problem_id" column="problem_id"/>
+		<result property="problem_type" column="problem_type"/>
+		<result property="problem_content" column="problem_content"/>
+		<result property="problem_index" column="problem_index"/>
+		<result property="problem_answer" column="problem_answer"/>
+		<result property="problem_print" column="problem_print"/>
+		<result property="problem_desc" column="problem_desc"/>
+		<result property="problem_status" column="problem_status"/>
+		<result property="problemLikeCount" column="problemLikeCount"/>
+	</resultMap>
+	
+	
+	<select id="selectLikedProblemByMemberId" resultType="problem" parameterType="Map">
+		select p.*
+		from problem p
+		join problem_like pl
+		on p.problem_id = pl.problem_id
+		where pl.member_id = #{memberId}
+		limit #{startLimit},#{sizeLimit}
+	</select>
+	
+	<select id="selectProblemOrderByInquiry" resultMap="problemWithInquiryCount" parameterType="int">
+		select p.* ,
+		(select count(1) from problem_inquiry pi where pi.problem_id = p.problem_id) problemInquiryCount
+		from problem p
+		order by problemInquiryCount desc
+		limit #{limit}
+	</select>
+	
+	<select id="selectProblemOrderByLike" resultMap="problemWithLikeCount" parameterType="int">
+		select p.* ,
+		(select count(1) from problem_inquiry pl where pl.problem_id = p.problem_id) problemLikeCount
+		from problem p
+		order by problemLikeCount desc
+		limit #{limit}
+	</select>
+	
+</mapper>
