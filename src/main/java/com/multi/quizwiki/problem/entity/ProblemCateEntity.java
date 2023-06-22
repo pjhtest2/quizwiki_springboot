@@ -1,4 +1,4 @@
-package com.multi.quizwiki.pboard.entity;
+package com.multi.quizwiki.problem.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

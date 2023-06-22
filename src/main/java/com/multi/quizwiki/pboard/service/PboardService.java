@@ -8,12 +8,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.multi.quizwiki.pboard.entity.PboardCateEntity;
 import com.multi.quizwiki.pboard.entity.PboardEntity;
+import com.multi.quizwiki.pboard.entity.PboardLikeEntity;
 import com.multi.quizwiki.pboard.entity.PboardReplyEntity;
-import com.multi.quizwiki.pboard.entity.PrintFileEntity;
-import com.multi.quizwiki.pboard.entity.ProblemCateEntity;
-import com.multi.quizwiki.pboard.entity.ProblemEntity;
-import com.multi.quizwiki.pboard.entity.ProblemLikeEntity;
-import com.multi.quizwiki.pboard.entity.SolvEntity;
+import com.multi.quizwiki.problem.entity.PrintFileEntity;
+import com.multi.quizwiki.problem.entity.ProblemCateEntity;
+import com.multi.quizwiki.problem.entity.ProblemEntity;
+import com.multi.quizwiki.problem.entity.ProblemInquiryEntity;
+import com.multi.quizwiki.problem.entity.ProblemLikeEntity;
+import com.multi.quizwiki.solv.entity.SolvEntity;
 
 public interface PboardService {
 	
@@ -50,4 +52,12 @@ public interface PboardService {
 	
 	public SolvEntity solv_insert(SolvEntity solv);
 	public List<SolvEntity> solv_insertAll(List<SolvEntity> solvList);
+	
+	public ProblemInquiryEntity inquiry_insert(ProblemInquiryEntity problemInquiry);
+	
+	public PboardLikeEntity pboardlike_insert(PboardLikeEntity pboardLike);
+	
+	public PboardLikeEntity pboardlike_findByMemeberIdAndPboardId(String memberId, int pboardId);
+	
+	public void incrementShowCount(int pboardId);
 }

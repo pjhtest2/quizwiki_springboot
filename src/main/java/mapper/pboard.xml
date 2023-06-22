@@ -3,13 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.multi.quizwiki.pboard">
-
+	<resultMap type="pboard" id="pboardWithLikeCount">
+		<id property="pboard_id" column="pboard_id" />
+		<result property="member_id" column="member_id" />
+		<result property="pboard_cate_id" column="pboard_cate_id" />
+		<result property="pboard_title" column="pboard_title" />
+		<result property="pboard_content" column="pboard_content" />
+		<result property="pboard_reg_date" column="pboard_reg_date" />
+		<result property="pboard_edit_date" column="pboard_edit_date" />
+		<result property="pboard_show_count" column="pboard_show_count" />
+		<result property="pboard_status" column="pboard_status" />
+	</resultMap>
 	
-	<!-- 게시물 조회 status체크해서 삭제 된 게시물은 따로 분기처리 -->
-	<select id="read" resultType="pboard" parameterType="int">
-		select pb.* from pboard pb 
-				 join problem p 
-		on p.pboard_id = pb.#{pboard_id}
-		 where 
+	<select id="selectOrderByLikeCount" resultMap="pboardWithLikeCount" parameterType="int">
+		select p.*,
+		(select count(1) from pboard_like pl where pl.pboard_id = p.pboard_id) pboardLikeCount
+		from pboard p
+		order by pboardLikeCount desc
+		limit #{limit}
 	</select>
 </mapper>
