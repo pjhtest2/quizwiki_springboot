@@ -2,15 +2,19 @@ package com.multi.quizwiki.pboard.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import com.multi.quizwiki.dto.PboardDTO;
 import com.multi.quizwiki.pboard.entity.PboardCateEntity;
 import com.multi.quizwiki.pboard.entity.PboardEntity;
+import com.multi.quizwiki.pboard.entity.PboardLikeEntity;
 import com.multi.quizwiki.pboard.entity.PboardReplyEntity;
 import com.multi.quizwiki.pboard.repository.PboardCateRepository;
+import com.multi.quizwiki.pboard.repository.PboardLikeRepository;
 import com.multi.quizwiki.pboard.repository.PboardReplyRepository;
 import com.multi.quizwiki.pboard.repository.PboardRepository;
 
@@ -23,13 +27,21 @@ public class PboardDAOImpl implements PboardDAO{
 	PboardRepository pboardRepo;
 	PboardCateRepository pboardCateRepo;
 	PboardReplyRepository pboardReplyRepo;
+	PboardLikeRepository pboardLikeRepo;
+	SqlSession ss;
 	
 	
 	@Autowired
-	public PboardDAOImpl(PboardRepository pboardRepo, PboardCateRepository pboardCateRepo,PboardReplyRepository pboardReplyRepo) {
+	public PboardDAOImpl(PboardRepository pboardRepo, 
+			PboardCateRepository pboardCateRepo,
+			PboardReplyRepository pboardReplyRepo,
+			PboardLikeRepository pboardLikeRepo,
+			SqlSession ss) {
 		this.pboardRepo = pboardRepo;
 		this.pboardCateRepo = pboardCateRepo;
 		this.pboardReplyRepo = pboardReplyRepo;
+		this.pboardLikeRepo = pboardLikeRepo;
+		this.ss = ss;
 	}
 	
 	
@@ -87,6 +99,38 @@ public class PboardDAOImpl implements PboardDAO{
 
 
 
+	@Override
+	public PboardLikeEntity pboardlike_insert(PboardLikeEntity pboardLike) {
+		return pboardLikeRepo.save(pboardLike);
+	}
 
 
+
+
+	@Override
+	public PboardLikeEntity pboardlike_findByMemeberIdAndPboardId(String memberId, int pboardId) {
+		return pboardLikeRepo.findByMemberIdAndPboardId(memberId, pboardId);
+	}
+
+	@Override
+	public List<PboardDTO> pboard_findOrderByLikeCount(int limit) {
+		return ss.selectList("com.multi.quizwiki.pboard.selectOrderByLikeCount",limit);
+	}
+
+
+
+
+	@Override
+	public List<PboardEntity> findTop10ByPboardStatusNotOrderByPboardShowCountDesc() {
+		return pboardRepo.findTop10ByPboardStatusNotOrderByPboardShowCountDesc("d");
+	}
+
+
+
+
+	@Override
+	public synchronized void incrementShowCount(int pboardId) {
+		PboardEntity pboard = pboardRepo.findById(pboardId).get();
+		pboard.setPboardShowCount(pboard.getPboardShowCount()+1);
+	}
 }

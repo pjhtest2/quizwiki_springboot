@@ -23,7 +23,6 @@ public class PboardLikeEntity {
 	int pboardId;
 	
 	public PboardLikeEntity(String memberId, int pboardId) {
-		super();
 		this.memberId = memberId;
 		this.pboardId = pboardId;
 	}

@@ -1,6 +1,8 @@
 package com.multi.quizwiki.pboard.repository;
 
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,5 +20,5 @@ public interface PboardRepository extends JpaRepository<PboardEntity, Integer>{
 	findByPboardCateIdAndPboardStatusNotAndMemberIdContaining
 	(int pboardCateId,String pboardStatus,String memberId, Pageable pageable);
 	
-
+	public List<PboardEntity>findTop10ByPboardStatusNotOrderByPboardShowCountDesc(String status);
 }

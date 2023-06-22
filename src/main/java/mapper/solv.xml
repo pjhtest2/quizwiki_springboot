@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.quizwiki.solv">
+	<resultMap type="solv" id="solvWithProblemResultMap">
+		<id property="solv_id" column="solv_id" />
+		<result property="problem_id" column="problem_id" />
+		<result property="member_id" column="member_id" />
+		<result property="solv_answer" column="solv_answer" />
+		<result property="solv_edit_date" column="solv_edit_date" />
+		<result property="solv_right" column="solv_right" />
+		<association property="problem" javaType="problem">
+			<id property="problem_id" column="problem_id" />
+			<result property="problem_cate_id" column="problem_cate_id"/>
+			<result property="pboard_id" column="pboard_id"/>
+			<result property="problem_type" column="problem_type"/>
+			<result property="problem_content" column="problem_content"/>
+			<result property="problem_index" column="problem_index"/>
+			<result property="problem_answer" column="problem_answer"/>
+			<result property="problem_print" column="problem_print"/>
+			<result property="problem_desc" column="problem_desc"/>
+			<result property="problem_status" column="problem_status"/>
+		</association>
+	</resultMap>
+
+	<sql id="solvFilter">
+		where s.member_id = #{memberId}
+		<if test="solvRight != null">
+			and s.solv_right = #{solvRight}
+		</if>
+		<if test="categoryId != null">
+			and p.problem_cate_id = #{categoryId}
+		</if>
+		<if test="minDate != null and maxDate != null">
+			and DATE(s.solv_edit_date) >= DATE(#{minDate})
+			and DATE(#{maxDate}) >= DATE(s.solv_edit_date)
+		</if>
+		order by solv_edit_date desc
+	</sql>
+
+	<select id="selectSolvCountByFilter" resultType="int" parameterType="Map">
+		select count(s.solv_id)
+		from solv s
+		join problem p
+		on p.problem_id = s.problem_id
+		<include refid="solvFilter"></include>
+	</select>
+	
+	<select id="selectSolvByFilter" resultMap="solvWithProblemResultMap" parameterType="Map">
+		select s.*, p.*
+		from solv s
+		join problem p
+		on p.problem_id = s.problem_id
+		<include refid="solvFilter"></include>
+	</select>
+	
+
+	
+</mapper>

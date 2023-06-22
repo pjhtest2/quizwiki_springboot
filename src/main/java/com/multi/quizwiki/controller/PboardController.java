@@ -37,12 +37,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.multi.quizwiki.common.FileUploadLogicService;
 import com.multi.quizwiki.pboard.entity.PboardEntity;
+import com.multi.quizwiki.pboard.entity.PboardLikeEntity;
 import com.multi.quizwiki.pboard.entity.PboardReplyEntity;
-import com.multi.quizwiki.pboard.entity.PrintFileEntity;
-import com.multi.quizwiki.pboard.entity.ProblemEntity;
-import com.multi.quizwiki.pboard.entity.ProblemLikeEntity;
-import com.multi.quizwiki.pboard.entity.SolvEntity;
 import com.multi.quizwiki.pboard.service.PboardService;
+import com.multi.quizwiki.problem.entity.PrintFileEntity;
+import com.multi.quizwiki.problem.entity.ProblemEntity;
+import com.multi.quizwiki.problem.entity.ProblemInquiryEntity;
+import com.multi.quizwiki.problem.entity.ProblemLikeEntity;
+import com.multi.quizwiki.solv.entity.SolvEntity;
 
 
 @Controller
@@ -123,8 +125,12 @@ public class PboardController {
 	public String show_pboard_read(Model model , int no) {
 		
 		PboardEntity pboard = pboardService.pboard_findById(no);
+		System.out.println("pboardLikeCount==>"+pboard.getPboardLikeCount());
+		System.out.println("pboardReplyCount==>"+pboard.getPboardReplyCount());
 		model.addAttribute("pboard",pboard);
 		model.addAttribute("cate",pboard.getPboardCateId());
+		
+		pboardService.incrementShowCount(no);
 		return "thymeleaf/pboard/pboard_read";
 	}
 	
@@ -266,6 +272,42 @@ public class PboardController {
 		}
 		
 		return util.CalcUtil.getJsonStringAsResForm(savedList, msg);
+	}
+	
+	@PostMapping(value="/post/probleminquiry")
+	@ResponseBody
+	public JsonNode problem_inquiry_post(int problemId ,String inquiryContent) throws JsonProcessingException {
+		
+		String memberId = "test";//세션에서 받아와야함.
+		String msg = "false";
+		
+		ProblemInquiryEntity problemInquiry = pboardService.inquiry_insert(new ProblemInquiryEntity(memberId, problemId, inquiryContent));
+		if(problemInquiry != null) {
+			msg = "true";
+		}
+		return util.CalcUtil.getJsonStringAsResForm(problemInquiry, msg);
+	}
+	
+	@PostMapping(value="/post/pboardlike")
+	@ResponseBody
+	public JsonNode pboard_like_post(int pboardId) throws JsonProcessingException {
+		
+		String memberId = "test";//세션에서 받아와야함.
+		String msg = "false";
+		PboardLikeEntity pboardLike = null;
+		
+		PboardLikeEntity pl = pboardService.pboardlike_findByMemeberIdAndPboardId(memberId, pboardId);
+		if(pl == null) {
+			pboardLike = pboardService.pboardlike_insert(new PboardLikeEntity(memberId, pboardId));
+			if(pboardLike != null) {
+				msg = "true";
+			}
+		}else {
+			msg = "duplicated";
+		}
+		
+		
+		return util.CalcUtil.getJsonStringAsResForm(pboardLike, msg);
 	}
 
 }

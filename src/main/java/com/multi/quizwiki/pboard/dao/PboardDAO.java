@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.multi.quizwiki.dto.PboardDTO;
 import com.multi.quizwiki.pboard.entity.PboardCateEntity;
 import com.multi.quizwiki.pboard.entity.PboardEntity;
+import com.multi.quizwiki.pboard.entity.PboardLikeEntity;
 import com.multi.quizwiki.pboard.entity.PboardReplyEntity;
 
 public interface PboardDAO {
@@ -21,5 +23,12 @@ public interface PboardDAO {
 	
 	public List<PboardCateEntity> pboardCate_findAll();
 	
+	public PboardLikeEntity pboardlike_findByMemeberIdAndPboardId(String memberId, int pboardId);
+	public PboardLikeEntity pboardlike_insert(PboardLikeEntity pboardLike);
 	
+	public List<PboardDTO> pboard_findOrderByLikeCount(int limit);
+	
+	public List<PboardEntity>findTop10ByPboardStatusNotOrderByPboardShowCountDesc();
+	
+	public void incrementShowCount(int pboardId);
 }

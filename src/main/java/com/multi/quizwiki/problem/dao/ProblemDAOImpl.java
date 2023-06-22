@@ -1,27 +1,34 @@
-package com.multi.quizwiki.pboard.dao;
+package com.multi.quizwiki.problem.dao;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.multi.quizwiki.common.FileUploadLogicService;
-import com.multi.quizwiki.pboard.entity.PrintFileEntity;
-import com.multi.quizwiki.pboard.entity.ProblemCateEntity;
-import com.multi.quizwiki.pboard.entity.ProblemChoiseEntity;
-import com.multi.quizwiki.pboard.entity.ProblemEntity;
-import com.multi.quizwiki.pboard.entity.ProblemLikeEntity;
-import com.multi.quizwiki.pboard.entity.SolvEntity;
-import com.multi.quizwiki.pboard.repository.PrintFileRepository;
-import com.multi.quizwiki.pboard.repository.ProblemCateRepository;
-import com.multi.quizwiki.pboard.repository.ProblemChoiseRepository;
-import com.multi.quizwiki.pboard.repository.ProblemLikeRepository;
-import com.multi.quizwiki.pboard.repository.ProblemRepository;
-import com.multi.quizwiki.pboard.repository.SolvRepository;
+import com.multi.quizwiki.dto.ProblemDTO;
+import com.multi.quizwiki.problem.entity.PrintFileEntity;
+import com.multi.quizwiki.problem.entity.ProblemCateEntity;
+import com.multi.quizwiki.problem.entity.ProblemChoiseEntity;
+import com.multi.quizwiki.problem.entity.ProblemEntity;
+import com.multi.quizwiki.problem.entity.ProblemInquiryEntity;
+import com.multi.quizwiki.problem.entity.ProblemLikeEntity;
+import com.multi.quizwiki.problem.repository.PrintFileRepository;
+import com.multi.quizwiki.problem.repository.ProblemCateRepository;
+import com.multi.quizwiki.problem.repository.ProblemChoiseRepository;
+import com.multi.quizwiki.problem.repository.ProblemInquiryRepository;
+import com.multi.quizwiki.problem.repository.ProblemLikeRepository;
+import com.multi.quizwiki.problem.repository.ProblemRepository;
+import com.multi.quizwiki.solv.entity.SolvEntity;
+import com.multi.quizwiki.solv.repository.SolvRepository;
 
 import lombok.NoArgsConstructor;
+import util.CalcUtil;
 
 @NoArgsConstructor
 @Repository
@@ -33,7 +40,10 @@ public class ProblemDAOImpl implements ProblemDAO {
 	PrintFileRepository printFileRepo;
 	ProblemLikeRepository problemLikeRepo;
 	SolvRepository solvRepo;
+	ProblemInquiryRepository problemInquiryRepo;
 	FileUploadLogicService fileUpload;
+	
+	SqlSession ss;
 	
 	@Autowired
 	public ProblemDAOImpl(
@@ -43,7 +53,9 @@ public class ProblemDAOImpl implements ProblemDAO {
 			PrintFileRepository printFileRepo,
 			FileUploadLogicService fileUpload,
 			ProblemLikeRepository problemLikeRepo,
-			SolvRepository solvRepo) {
+			SolvRepository solvRepo,
+			ProblemInquiryRepository problemInquiryRepo,
+			SqlSession ss) {
 		
 		this.problemRepo = problemRepo;
 		this.problemChoiseRepo = problemChoiseRepo;
@@ -52,6 +64,8 @@ public class ProblemDAOImpl implements ProblemDAO {
 		this.fileUpload = fileUpload;
 		this.problemLikeRepo = problemLikeRepo;
 		this.solvRepo = solvRepo;
+		this.problemInquiryRepo = problemInquiryRepo;
+		this.ss = ss;
 	}
 	
 	@Override
@@ -127,5 +141,25 @@ public class ProblemDAOImpl implements ProblemDAO {
 	public List<SolvEntity> solv_insertAll(List<SolvEntity> solvList) {
 		return solvRepo.saveAll(solvList);
 	}
+
+	@Override
+	public List<ProblemDTO> problem_findLikedByMemberId(String memberId, int size, int page) {
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+		
+		paramMap.put("memberId", memberId);
+		CalcUtil.addPageParam(paramMap, size, page);
+		return ss.selectList("com.multi.quizwiki.problem.selectLikedProblemByMemberId",paramMap);
+	}
+
+	@Override
+	public ProblemInquiryEntity inquiry_insert(ProblemInquiryEntity problemInquiry) {
+		return problemInquiryRepo.save(problemInquiry);
+	}
+
+	@Override
+	public List<ProblemDTO> problem_findOrderByInquiry(int limit) {
+		return ss.selectList("com.multi.quizwiki.problem.selectProblemOrderByInquiry",limit);
+	}
+
 
 }
